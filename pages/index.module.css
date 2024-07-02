@@ -1,0 +1,78 @@
+.container {
+    padding: 20px;
+}
+
+.title {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.inputContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.input {
+    padding: 10px;
+    margin-right: 10px;
+    font-size: 1em;
+}
+
+.button {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #005bb5;
+}
+
+.tabs {
+    width: 100%;
+}
+
+.tabsList {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.tabTrigger {
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.tabTrigger[aria-selected="true"] {
+    background-color: #0070f3;
+    color: white;
+}
+
+.tabsContent {
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+.tabTitle {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.newItems {
+    color: green;
+    margin-bottom: 10px;
+}
+
+.product {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.newProduct {
+    border: 2px solid green;
+}

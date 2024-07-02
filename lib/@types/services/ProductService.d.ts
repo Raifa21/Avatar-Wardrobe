@@ -22,12 +22,6 @@ export interface ProductService {
    * @returns A promise that resolves to the search results.
    */
   find: (term: string) => Promise<any>;
-
-  /**
-   * Downloads a specified product.
-   * @param boothProduct - The product to download.
-   * @returns A promise that resolves when the download is complete.
-   */
 }
 
 /**

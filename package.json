@@ -9,13 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-tabs": "^1.1.0",
     "axios": "^1.7.2",
     "axios-cookiejar-support": "^5.0.2",
     "cheerio": "^1.0.0-rc.12",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.400.0",
     "next": "14.2.4",
     "puppeteer": "^22.12.1",
     "react": "^18",
     "react-dom": "^18",
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss-animate": "^1.0.7",
     "tough-cookie": "^4.1.4"
   },
   "devDependencies": {
