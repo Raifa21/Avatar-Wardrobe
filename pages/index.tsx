@@ -2,6 +2,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import styles from "./index.module.css";
+import { Noto_Sans_JP } from "next/font/google";
+import clsx from "clsx";
+
+const notosansjp = Noto_Sans_JP({ subsets: ["latin"], weight: "100" });
 
 type Product = {
   imageURL: string;
@@ -126,7 +130,7 @@ export default function Home() {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={clsx(styles.container, notosansjp.className)}>
       <h1 className={styles.title}>Booth.pm Product Scraper</h1>
       <div className={styles.inputContainer}>
         <input
@@ -171,6 +175,12 @@ export default function Home() {
               value={tab.id.toString()}
               className={styles.tabsContent}
             >
+              <button
+                onClick={() => handleReload(tab)}
+                className={styles.reloadButton}
+              >
+                Reload
+              </button>
               <h2 className={styles.tabTitle}>{tab.name}</h2>
               {newItems.length > 0 && (
                 <p className={styles.newItems}>New items found!</p>
@@ -178,6 +188,12 @@ export default function Home() {
               <div className={styles.grid}>
                 {tab.products.map((product) => (
                   <div
+                    onClick={() => {
+                      window.open(
+                        product.shopURL + "items/" + product.productId,
+                        "_blank",
+                      );
+                    }}
                     key={product.productId}
                     className={`${styles.product} ${
                       !tab.seenItems.has(product.productId) && styles.newProduct
@@ -189,31 +205,23 @@ export default function Home() {
                       className={styles.largeImage}
                     />
                     <p>{product.productName}</p>
-                    <p>Brand: {product.productBrand}</p>
-                    <p>Price: {product.productPrice}円</p>
-                    <div className={styles.shopInfo}>
+                    <div
+                      onClick={() => {
+                        window.open(product.shopURL, "_blank");
+                      }}
+                      className={styles.shopInfo}
+                    >
                       <img
                         src={product.shopImageURL}
                         alt={product.shopName}
                         className={styles.smallImage}
                       />
-                      <a
-                        href={product.shopURL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {product.shopName}
-                      </a>
+                      {product.shopName}
                     </div>
+                    <div className="price-text">¥ {product.productPrice}</div>
                   </div>
                 ))}
               </div>
-              <button
-                onClick={() => handleReload(tab)}
-                className={styles.reloadButton}
-              >
-                Reload
-              </button>
             </TabsContent>
           ))}
         </Tabs>

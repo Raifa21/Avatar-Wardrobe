@@ -72,63 +72,79 @@
     flex-direction: column;
     align-items: left;
     padding: 16px;
-    border: 1px solid #ddd; /* Adjust the border style as needed */
-    border-radius: 8px; /* Optional: to round the corners */
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    /* Adjust the border style as needed */
+    border-radius: 8px;
+    /* Optional: to round the corners */
+    cursor: pointer;
 }
 
 .product .largeImage {
     width: 90%;
-    height: auto; /* Maintain aspect ratio */
+    height: auto;
+    /* Maintain aspect ratio */
+    align-self: center;
 }
 
 .product .smallImage {
     width: 20px;
-    height: auto; /* Maintain aspect ratio */
+    height: 20px;
+    /* Maintain aspect ratio */
     border-radius: 99px;
 }
 
 .shopInfo {
     display: flex;
+    font-size: 0.8em;
 }
 
 .shopInfo img {
-    margin-right: 8px; /* Space between image and shop name */
+    margin-right: 8px;
+    /* Space between image and shop name */
 }
 
 .grid {
     display: grid;
-    gap: 16px; /* Adjust the gap as needed */
+    gap: 16px;
+    /* Adjust the gap as needed */
 }
 
-@media (max-width: 600px) {
+.price-text {
+    color: #fe5b66;
+}
+
+@media (max-width: 720px) {
     .grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 columns for small screens */
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 columns for small screens */
     }
 }
 
-@media (min-width: 601px) and (max-width: 900px) {
+@media (min-width: 721px) and (max-width: 920px) {
     .grid {
-        grid-template-columns: repeat(
-            3,
-            1fr
-        ); /* 3 columns for medium screens */
+        grid-template-columns: repeat(3, 1fr);
+        /* 3 columns for medium screens */
     }
 }
 
-@media (min-width: 901px) and (max-width: 1200px) {
+@media (min-width: 921px) and (max-width: 1120px) {
     .grid {
-        grid-template-columns: repeat(
-            4,
-            1fr
-        ); /* 4 columns for larger screens */
+        grid-template-columns: repeat(4, 1fr);
+        /* 4 columns for larger screens */
     }
 }
 
-@media (min-width: 1201px) {
+@media (min-width: 1121px) and (max-width: 1320px) {
     .grid {
-        grid-template-columns: repeat(
-            6,
-            1fr
-        ); /* 6 columns for very large screens */
+        grid-template-columns: repeat(5, 1fr);
+        /* 5 columns for very large screens */
+    }
+}
+
+@media (min-width: 1321px) {
+    .grid {
+        grid-template-columns: repeat(6, 1fr);
+        /* 6 columns for very large screens */
     }
 }
