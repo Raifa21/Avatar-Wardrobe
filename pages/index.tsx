@@ -183,17 +183,20 @@ export default function Home() {
                       !tab.seenItems.has(product.productId) && styles.newProduct
                     }`}
                   >
-                    <h3>{product.productName}</h3>
                     <img
                       src={product.imageURL}
                       alt={product.productName}
-                      width={100}
-                      height={100}
+                      className={styles.largeImage}
                     />
+                    <p>{product.productName}</p>
                     <p>Brand: {product.productBrand}</p>
                     <p>Price: {product.productPrice}円</p>
-                    <p>
-                      Shop:{" "}
+                    <div className={styles.shopInfo}>
+                      <img
+                        src={product.shopImageURL}
+                        alt={product.shopName}
+                        className={styles.smallImage}
+                      />
                       <a
                         href={product.shopURL}
                         target="_blank"
@@ -201,13 +204,7 @@ export default function Home() {
                       >
                         {product.shopName}
                       </a>
-                    </p>
-                    <img
-                      src={product.shopImageURL}
-                      alt={product.shopName}
-                      width={50}
-                      height={50}
-                    />
+                    </div>
                   </div>
                 ))}
               </div>
