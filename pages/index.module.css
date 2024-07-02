@@ -65,6 +65,7 @@
 .newItems {
     color: green;
     margin-bottom: 10px;
+    border: 1px solid green;
 }
 
 .product {
@@ -72,79 +73,79 @@
     flex-direction: column;
     align-items: left;
     padding: 16px;
+    padding-bottom: 70px; /* Add padding to the bottom to make space for shopInfo and priceText */
     margin-top: 10px;
     border: 1px solid #ddd;
-    /* Adjust the border style as needed */
     border-radius: 8px;
-    /* Optional: to round the corners */
     cursor: pointer;
+    position: relative;
 }
 
 .product .largeImage {
-    width: 90%;
+    width: 100%;
     height: auto;
-    /* Maintain aspect ratio */
     align-self: center;
+    margin-bottom: 16px;
 }
 
 .product .smallImage {
     width: 20px;
     height: 20px;
-    /* Maintain aspect ratio */
     border-radius: 99px;
 }
 
 .shopInfo {
     display: flex;
-    font-size: 0.8em;
+    position: absolute;
+    bottom: 40px; /* Adjust as needed */
+    font-size: 0.7em;
+    justify-content: center;
+    align-items: center;
 }
 
 .shopInfo img {
     margin-right: 8px;
-    /* Space between image and shop name */
 }
 
 .grid {
     display: grid;
     gap: 16px;
-    /* Adjust the gap as needed */
 }
 
-.price-text {
+.priceText {
+    font-size: 0.9em;
     color: #fe5b66;
+    position: absolute;
+    bottom: 12px;
+    left: 16px;
 }
 
 @media (max-width: 720px) {
     .grid {
         grid-template-columns: repeat(2, 1fr);
-        /* 2 columns for small screens */
     }
 }
 
 @media (min-width: 721px) and (max-width: 920px) {
     .grid {
         grid-template-columns: repeat(3, 1fr);
-        /* 3 columns for medium screens */
     }
 }
 
 @media (min-width: 921px) and (max-width: 1120px) {
     .grid {
         grid-template-columns: repeat(4, 1fr);
-        /* 4 columns for larger screens */
     }
 }
 
 @media (min-width: 1121px) and (max-width: 1320px) {
     .grid {
         grid-template-columns: repeat(5, 1fr);
-        /* 5 columns for very large screens */
     }
 }
 
 @media (min-width: 1321px) {
     .grid {
         grid-template-columns: repeat(6, 1fr);
-        /* 6 columns for very large screens */
     }
 }

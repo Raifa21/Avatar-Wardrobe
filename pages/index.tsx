@@ -32,6 +32,8 @@ export default function Home() {
   const [activeTabId, setActiveTabId] = useState<number | null>(null);
   const [newItems, setNewItems] = useState<Product[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [newTabName, setNewTabName] = useState<string>("");
+  const [newTabTerm, setNewTabTerm] = useState<string>("");
 
   useEffect(() => {
     const savedTabs = localStorage.getItem("tabs");
@@ -105,16 +107,18 @@ export default function Home() {
     setError(null); // Clear previous error
   };
 
-  const addTab = (name: string, term: string) => {
+  const addTab = () => {
     const newTab: Tab = {
       id: Date.now(),
-      name,
-      term,
+      name: newTabName,
+      term: newTabTerm,
       products: [],
       seenItems: new Set<number>(),
     };
     setTabs((prevTabs) => [...prevTabs, newTab]);
     setActiveTabId(newTab.id);
+    setNewTabName(""); // Clear the input fields
+    setNewTabTerm("");
   };
 
   const handleReload = async (tab: Tab) => {
@@ -135,19 +139,21 @@ export default function Home() {
       <div className={styles.inputContainer}>
         <input
           type="text"
-          id="newTabTerm"
-          placeholder="Search Term"
+          id="newTabName"
+          placeholder="Tab Name"
+          value={newTabName}
+          onChange={(e) => setNewTabName(e.target.value)}
           className={styles.input}
         />
-        <button
-          onClick={() => {
-            const term = (
-              document.getElementById("newTabTerm") as HTMLInputElement
-            ).value;
-            addTab(`Tab ${tabs.length + 1}`, term);
-          }}
-          className={styles.button}
-        >
+        <input
+          type="text"
+          id="newTabTerm"
+          placeholder="Search Term"
+          value={newTabTerm}
+          onChange={(e) => setNewTabTerm(e.target.value)}
+          className={styles.input}
+        />
+        <button onClick={addTab} className={styles.button}>
           Add Tab
         </button>
       </div>
@@ -204,7 +210,7 @@ export default function Home() {
                       alt={product.productName}
                       className={styles.largeImage}
                     />
-                    <p>{product.productName}</p>
+                    <p className={styles.productName}>{product.productName}</p>
                     <div
                       onClick={() => {
                         window.open(product.shopURL, "_blank");
@@ -218,7 +224,9 @@ export default function Home() {
                       />
                       {product.shopName}
                     </div>
-                    <div className="price-text">¥ {product.productPrice}</div>
+                    <div className={styles.priceText}>
+                      ¥ {product.productPrice}
+                    </div>
                   </div>
                 ))}
               </div>
