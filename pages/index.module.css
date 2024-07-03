@@ -49,7 +49,6 @@
 .tabTitle {
     font-size: 1.5em;
     margin-top: 3px;
-    margin-left: 10px;
 }
 
 .tabTrigger {
@@ -71,14 +70,31 @@
     margin-top: 12px;
 }
 
+.editInput {
+    border: none;
+    background-color: transparent;
+    width: auto;
+    font-size: 1.5em;
+    margin-top: 3px;
+    margin-left: 10px;
+    margin-bottom: 12px;
+    font-weight: normal;
+    color: gray;
+}
+
+.editInput:focus {
+    outline: none;
+}
+
 .tabsContent {
     padding: 20px;
 }
 
 .reloadIcon {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     cursor: pointer;
+    margin-top: 12px;
     margin-left: auto;
 }
 
@@ -94,7 +110,6 @@
     align-items: left;
     padding-bottom: 32px; /* Add padding to the bottom to make space for shopInfo and priceText */
     margin-top: 10px;
-    cursor: pointer;
     position: relative;
 }
 
@@ -102,6 +117,7 @@
     width: 100%;
     height: auto;
     align-self: center;
+    cursor: pointer;
 }
 
 .productName {
@@ -109,6 +125,7 @@
     margin-top: 10px;
     word-spacing: 0.1px;
     font-weight: bold;
+    cursor: default;
 }
 
 .product .smallImage {
@@ -124,10 +141,12 @@
     font-size: 0.7em;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .shopInfo img {
     margin-right: 8px;
+    cursor: pointer;
 }
 
 .grid {
@@ -141,6 +160,7 @@
     bottom: 0px;
     color: #fe5b66;
     position: absolute;
+    cursor: default;
 }
 
 @media (max-width: 720px) {
