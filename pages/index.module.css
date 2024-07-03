@@ -1,5 +1,6 @@
 .container {
     padding: 20px;
+    background-color: #f1f1f1;
 }
 
 .title {
@@ -41,6 +42,16 @@
     margin-bottom: 20px;
 }
 
+.tabHeader {
+    display: flex;
+}
+
+.tabTitle {
+    font-size: 1.5em;
+    margin-top: 3px;
+    margin-left: 10px;
+}
+
 .tabTrigger {
     padding: 10px 20px;
     font-size: 1em;
@@ -52,14 +63,23 @@
     color: white;
 }
 
-.tabsContent {
-    padding: 20px;
-    border: 1px solid #ddd;
+.editIcon {
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+    cursor: pointer;
+    margin-top: 12px;
 }
 
-.tabTitle {
-    font-size: 1.5em;
-    margin-bottom: 10px;
+.tabsContent {
+    padding: 20px;
+}
+
+.reloadIcon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-left: auto;
 }
 
 .newItems {
@@ -72,11 +92,8 @@
     display: flex;
     flex-direction: column;
     align-items: left;
-    padding: 16px;
-    padding-bottom: 70px; /* Add padding to the bottom to make space for shopInfo and priceText */
+    padding-bottom: 32px; /* Add padding to the bottom to make space for shopInfo and priceText */
     margin-top: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
     cursor: pointer;
     position: relative;
 }
@@ -85,7 +102,13 @@
     width: 100%;
     height: auto;
     align-self: center;
-    margin-bottom: 16px;
+}
+
+.productName {
+    font-size: 0.8em;
+    margin-top: 10px;
+    word-spacing: 0.1px;
+    font-weight: bold;
 }
 
 .product .smallImage {
@@ -97,7 +120,7 @@
 .shopInfo {
     display: flex;
     position: absolute;
-    bottom: 40px; /* Adjust as needed */
+    bottom: 20px; /* Adjust as needed */
     font-size: 0.7em;
     justify-content: center;
     align-items: center;
@@ -113,11 +136,11 @@
 }
 
 .priceText {
-    font-size: 0.9em;
+    font-size: 0.8em;
+    font-weight: bold;
+    bottom: 0px;
     color: #fe5b66;
     position: absolute;
-    bottom: 12px;
-    left: 16px;
 }
 
 @media (max-width: 720px) {

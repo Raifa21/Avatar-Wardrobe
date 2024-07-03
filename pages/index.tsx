@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import styles from "./index.module.css";
-import { Noto_Sans_JP } from "next/font/google";
+import axios from "axios";
 import clsx from "clsx";
+import { Noto_Sans_JP } from "next/font/google";
+import { useEffect, useState } from "react";
+import styles from "./index.module.css";
+import editoutline from "../lib/eva-icons/outline/svg/edit-outline.svg";
+import refreshoutline from "../lib/eva-icons/outline/svg/refresh-outline.svg";
 
 const notosansjp = Noto_Sans_JP({ subsets: ["latin"], weight: "100" });
 
@@ -117,6 +119,7 @@ export default function Home() {
     };
     setTabs((prevTabs) => [...prevTabs, newTab]);
     setActiveTabId(newTab.id);
+    handleSearch(newTab);
     setNewTabName(""); // Clear the input fields
     setNewTabTerm("");
   };
@@ -127,24 +130,18 @@ export default function Home() {
 
   const setActiveTab = (tabId: number) => {
     setActiveTabId(tabId);
-    const tab = tabs.find((t) => t.id === tabId);
-    if (tab) {
-      handleSearch(tab);
-    }
+  };
+
+  const handleEditTabName = (id: number, newName: string) => {
+    setTabs((prevTabs) =>
+      prevTabs.map((tab) => (tab.id === id ? { ...tab, name: newName } : tab)),
+    );
   };
 
   return (
     <div className={clsx(styles.container, notosansjp.className)}>
       <h1 className={styles.title}>Booth.pm Product Scraper</h1>
       <div className={styles.inputContainer}>
-        <input
-          type="text"
-          id="newTabName"
-          placeholder="Tab Name"
-          value={newTabName}
-          onChange={(e) => setNewTabName(e.target.value)}
-          className={styles.input}
-        />
         <input
           type="text"
           id="newTabTerm"
@@ -165,14 +162,15 @@ export default function Home() {
         <Tabs defaultValue={tabs[0]?.id.toString()} className={styles.tabs}>
           <TabsList className={styles.tabsList}>
             {tabs.map((tab) => (
-              <TabsTrigger
-                key={tab.id}
-                value={tab.id.toString()}
-                onClick={() => setActiveTab(tab.id)}
-                className={styles.tabTrigger}
-              >
-                {tab.name}
-              </TabsTrigger>
+              <div className={styles.tabHeader} key={tab.id}>
+                <TabsTrigger
+                  value={tab.id.toString()}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={styles.tabTrigger}
+                >
+                  {tab.name}
+                </TabsTrigger>
+              </div>
             ))}
           </TabsList>
           {tabs.map((tab) => (
@@ -181,13 +179,24 @@ export default function Home() {
               value={tab.id.toString()}
               className={styles.tabsContent}
             >
-              <button
-                onClick={() => handleReload(tab)}
-                className={styles.reloadButton}
-              >
-                Reload
-              </button>
-              <h2 className={styles.tabTitle}>{tab.name}</h2>
+              <div className={styles.tabHeader}>
+                <h2 className={styles.tabTitle}>{tab.name}</h2>
+                <img
+                  src={editoutline.src}
+                  alt="Edit"
+                  className={styles.editIcon}
+                  onClick={() => {
+                    const newName = prompt("Enter new tab name", tab.name);
+                    if (newName) handleEditTabName(tab.id, newName);
+                  }}
+                />
+                <img
+                  src={refreshoutline.src}
+                  alt="Reload"
+                  className={styles.reloadIcon}
+                  onClick={() => handleReload(tab)}
+                />
+              </div>
               {newItems.length > 0 && (
                 <p className={styles.newItems}>New items found!</p>
               )}
