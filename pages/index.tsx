@@ -8,6 +8,7 @@ import styles from "./index.module.css";
 import editoutline from "../lib/eva-icons/outline/svg/edit-outline.svg";
 import refreshoutline from "../lib/eva-icons/outline/svg/refresh-outline.svg";
 import gearoutline from "../lib/eva-icons/outline/svg/settings-2-outline.svg";
+import plusoutline from "../lib/eva-icons/outline/svg/plus-outline.svg";
 
 const notosansjp_regular = Noto_Sans_JP({ subsets: ["latin"], weight: "300" });
 
@@ -129,8 +130,23 @@ export default function Home() {
     console.log("Active tab:", tabId);
   };
 
+  const extractIdFromUrl = (url: string): string | null => {
+    const match = url.match(/\/items\/(\d+)/);
+    return match ? match[1] : null;
+  };
+
   const addTab = () => {
-    const existingTab = tabs.find((tab) => tab.term === newTabTerm);
+    if (!newTabTerm) {
+      return;
+    }
+
+    const id = extractIdFromUrl(newTabTerm);
+    if (!id) {
+      console.error("Invalid URL format");
+      return;
+    }
+
+    const existingTab = tabs.find((tab) => tab.term === id);
 
     if (existingTab) {
       console.log("Tab already exists:", existingTab);
@@ -142,7 +158,7 @@ export default function Home() {
       const newTab: Tab = {
         id: Date.now(),
         name: newTabName || defaultName,
-        term: newTabTerm,
+        term: id, // Store the extracted id
         products: [],
         seenItems: new Set<number>(),
       };
@@ -187,7 +203,7 @@ export default function Home() {
             className={clsx(styles.input)}
           />
           <button onClick={addTab} className={styles.button}>
-            Add Tab
+            <img src={plusoutline.src} alt="add" className={styles.plusIcon} />
           </button>
         </div>
         <img src={gearoutline.src} alt="gear" className={styles.gearIcon} />
