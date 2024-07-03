@@ -4,20 +4,40 @@
 }
 
 .title {
-    font-size: 2em;
-    margin-bottom: 20px;
+    font-size: 1.2em;
+    align-items: center;
 }
 
 .inputContainer {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #d8dbdd;
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
+
+.gearIcon {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    align-self: center;
+    margin-left: auto;
 }
 
 .input {
     padding: 10px;
+    margin-left: 10vw;
     margin-right: 10px;
     font-size: 1em;
+    background-color: transparent;
+    border: 1px solid #d8dbdd;
+    border-radius: 5px;
+    width: 20vw;
 }
 
 .button {
@@ -27,6 +47,8 @@
     color: white;
     border: none;
     cursor: pointer;
+    margin-right: 40px;
+    white-space: nowrap;
 }
 
 .button:hover {
@@ -39,6 +61,9 @@
 
 .tabsList {
     display: flex;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent tabs from wrapping to new lines */
+    padding-bottom: 10px;
 }
 
 .tabHeader {

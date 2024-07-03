@@ -7,6 +7,7 @@ import "../app/globals.css";
 import styles from "./index.module.css";
 import editoutline from "../lib/eva-icons/outline/svg/edit-outline.svg";
 import refreshoutline from "../lib/eva-icons/outline/svg/refresh-outline.svg";
+import gearoutline from "../lib/eva-icons/outline/svg/settings-2-outline.svg";
 
 const notosansjp_regular = Noto_Sans_JP({ subsets: ["latin"], weight: "300" });
 
@@ -174,18 +175,22 @@ export default function Home() {
 
   return (
     <div className={clsx(styles.container, notosansjp_regular.className)}>
-      <div className={styles.inputContainer}>
-        <input
-          type="text"
-          id="newTabTerm"
-          placeholder="Search Term"
-          value={newTabTerm}
-          onChange={(e) => setNewTabTerm(e.target.value)}
-          className={clsx(styles.input)}
-        />
-        <button onClick={addTab} className={styles.button}>
-          Add Tab
-        </button>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Avatar Wardrobe</h1>
+        <div className={styles.inputContainer}>
+          <input
+            type="text"
+            id="newTabTerm"
+            placeholder="Search Term"
+            value={newTabTerm}
+            onChange={(e) => setNewTabTerm(e.target.value)}
+            className={clsx(styles.input)}
+          />
+          <button onClick={addTab} className={styles.button}>
+            Add Tab
+          </button>
+        </div>
+        <img src={gearoutline.src} alt="gear" className={styles.gearIcon} />
       </div>
       {tabs.length === 0 ? (
         <p className={clsx(styles.noTabs)}>
