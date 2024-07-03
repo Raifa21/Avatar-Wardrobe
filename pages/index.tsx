@@ -3,12 +3,12 @@ import axios from "axios";
 import clsx from "clsx";
 import { Noto_Sans_JP } from "next/font/google";
 import { useEffect, useState } from "react";
+import "../app/globals.css";
 import styles from "./index.module.css";
 import editoutline from "../lib/eva-icons/outline/svg/edit-outline.svg";
 import refreshoutline from "../lib/eva-icons/outline/svg/refresh-outline.svg";
 
-const notosansjp_100 = Noto_Sans_JP({ subsets: ["latin"], weight: "100" });
-const notosansjp_500 = Noto_Sans_JP({ subsets: ["latin"], weight: "500" });
+const notosansjp_regular = Noto_Sans_JP({ subsets: ["latin"], weight: "300" });
 
 type Product = {
   imageURL: string;
@@ -173,27 +173,27 @@ export default function Home() {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={clsx(styles.inputContainer, notosansjp_500)}>
+    <div className={clsx(styles.container, notosansjp_regular.className)}>
+      <div className={styles.inputContainer}>
         <input
           type="text"
           id="newTabTerm"
           placeholder="Search Term"
           value={newTabTerm}
           onChange={(e) => setNewTabTerm(e.target.value)}
-          className={styles.input}
+          className={clsx(styles.input)}
         />
         <button onClick={addTab} className={styles.button}>
           Add Tab
         </button>
       </div>
       {tabs.length === 0 ? (
-        <p className={clsx(styles.noTabs, notosansjp_500)}>
+        <p className={clsx(styles.noTabs)}>
           No tabs created yet. Add a new tab to start searching.
         </p>
       ) : (
         <Tabs value={activeTabId?.toString()} className={styles.tabs}>
-          <TabsList className={clsx(styles.tabsList, notosansjp_500)}>
+          <TabsList className={styles.tabsList}>
             {tabs.map((tab) => (
               <div className={styles.tabHeader} key={tab.id}>
                 <TabsTrigger
@@ -212,7 +212,7 @@ export default function Home() {
               value={tab.id.toString()}
               className={styles.tabsContent}
             >
-              <div className={clsx(styles.tabHeader, notosansjp_500)}>
+              <div className={styles.tabHeader}>
                 {alteringName === tab.id ? (
                   <input
                     type="text"
@@ -221,12 +221,10 @@ export default function Home() {
                     onKeyDown={(e) => handleKeyDown(e, tab.id)}
                     onCompositionStart={handleCompositionStart}
                     onCompositionEnd={handleCompositionEnd}
-                    className={clsx(styles.editInput, notosansjp_500)}
+                    className={styles.editInput}
                   />
                 ) : (
-                  <h2 className={clsx(styles.tabTitle, notosansjp_500)}>
-                    {tab.name}
-                  </h2>
+                  <h2 className={clsx(styles.tabTitle)}>{tab.name}</h2>
                 )}
                 {alteringName !== tab.id && (
                   <img
@@ -244,7 +242,7 @@ export default function Home() {
                 />
               </div>
               {loading ? (
-                <p>Loading...</p>
+                <p className={styles.newItems}>Loading...</p>
               ) : (
                 <>
                   {newItems.length > 0 && (
@@ -254,10 +252,11 @@ export default function Home() {
                     {tab.products.map((product) => (
                       <div
                         key={product.productId}
-                        className={`${styles.product} ${
+                        className={clsx(
+                          styles.product,
                           !tab.seenItems.has(product.productId) &&
-                          styles.newProduct
-                        }`}
+                            styles.newProduct,
+                        )}
                       >
                         <img
                           onClick={() => {
@@ -270,22 +269,14 @@ export default function Home() {
                           alt={product.productName}
                           className={styles.largeImage}
                         />
-                        <p
-                          className={clsx(
-                            styles.productName,
-                            notosansjp_100.className,
-                          )}
-                        >
+                        <p className={styles.productName}>
                           {product.productName}
                         </p>
                         <div
                           onClick={() => {
                             window.open(product.shopURL, "_blank");
                           }}
-                          className={clsx(
-                            styles.shopInfo,
-                            notosansjp_100.className,
-                          )}
+                          className={styles.shopInfo}
                         >
                           <img
                             src={product.shopImageURL}
@@ -294,7 +285,7 @@ export default function Home() {
                           />
                           {product.shopName}
                         </div>
-                        <div className={styles.priceText}>
+                        <div className={clsx(styles.priceText)}>
                           ¥ {product.productPrice}
                         </div>
                       </div>
