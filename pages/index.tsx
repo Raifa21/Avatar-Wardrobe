@@ -7,7 +7,8 @@ import styles from "./index.module.css";
 import editoutline from "../lib/eva-icons/outline/svg/edit-outline.svg";
 import refreshoutline from "../lib/eva-icons/outline/svg/refresh-outline.svg";
 
-const notosansjp = Noto_Sans_JP({ subsets: ["latin"], weight: "100" });
+const notosansjp_100 = Noto_Sans_JP({ subsets: ["latin"], weight: "100" });
+const notosansjp_500 = Noto_Sans_JP({ subsets: ["latin"], weight: "500" });
 
 type Product = {
   imageURL: string;
@@ -135,9 +136,11 @@ export default function Home() {
       setActiveTab(existingTab.id);
       setNewTabTerm("");
     } else {
+      const tabCount = tabs.length;
+      const defaultName = `Tab ${tabCount + 1}`;
       const newTab: Tab = {
         id: Date.now(),
-        name: newTabName,
+        name: newTabName || defaultName,
         term: newTabTerm,
         products: [],
         seenItems: new Set<number>(),
@@ -170,9 +173,8 @@ export default function Home() {
   };
 
   return (
-    <div className={clsx(styles.container, notosansjp.className)}>
-      <h1 className={styles.title}>Booth.pm Product Scraper</h1>
-      <div className={styles.inputContainer}>
+    <div className={styles.container}>
+      <div className={clsx(styles.inputContainer, notosansjp_500)}>
         <input
           type="text"
           id="newTabTerm"
@@ -186,12 +188,12 @@ export default function Home() {
         </button>
       </div>
       {tabs.length === 0 ? (
-        <p className={styles.noTabs}>
+        <p className={clsx(styles.noTabs, notosansjp_500)}>
           No tabs created yet. Add a new tab to start searching.
         </p>
       ) : (
         <Tabs value={activeTabId?.toString()} className={styles.tabs}>
-          <TabsList className={styles.tabsList}>
+          <TabsList className={clsx(styles.tabsList, notosansjp_500)}>
             {tabs.map((tab) => (
               <div className={styles.tabHeader} key={tab.id}>
                 <TabsTrigger
@@ -210,7 +212,7 @@ export default function Home() {
               value={tab.id.toString()}
               className={styles.tabsContent}
             >
-              <div className={styles.tabHeader}>
+              <div className={clsx(styles.tabHeader, notosansjp_500)}>
                 {alteringName === tab.id ? (
                   <input
                     type="text"
@@ -219,10 +221,12 @@ export default function Home() {
                     onKeyDown={(e) => handleKeyDown(e, tab.id)}
                     onCompositionStart={handleCompositionStart}
                     onCompositionEnd={handleCompositionEnd}
-                    className={styles.editInput}
+                    className={clsx(styles.editInput, notosansjp_500)}
                   />
                 ) : (
-                  <h2 className={styles.tabTitle}>{tab.name}</h2>
+                  <h2 className={clsx(styles.tabTitle, notosansjp_500)}>
+                    {tab.name}
+                  </h2>
                 )}
                 {alteringName !== tab.id && (
                   <img
@@ -266,14 +270,22 @@ export default function Home() {
                           alt={product.productName}
                           className={styles.largeImage}
                         />
-                        <p className={styles.productName}>
+                        <p
+                          className={clsx(
+                            styles.productName,
+                            notosansjp_100.className,
+                          )}
+                        >
                           {product.productName}
                         </p>
                         <div
                           onClick={() => {
                             window.open(product.shopURL, "_blank");
                           }}
-                          className={styles.shopInfo}
+                          className={clsx(
+                            styles.shopInfo,
+                            notosansjp_100.className,
+                          )}
                         >
                           <img
                             src={product.shopImageURL}

@@ -1,5 +1,6 @@
 .container {
-    padding: 20px;
+    padding-left: 8%;
+    padding-right: 8%;
     background-color: #f1f1f1;
 }
 
@@ -23,7 +24,7 @@
 .button {
     padding: 10px 20px;
     font-size: 1em;
-    background-color: #0070f3;
+    background-color: #66b3ff;
     color: white;
     border: none;
     cursor: pointer;
@@ -39,11 +40,11 @@
 
 .tabsList {
     display: flex;
-    margin-bottom: 20px;
 }
 
 .tabHeader {
     display: flex;
+    padding-top: 20px;
 }
 
 .tabTitle {
@@ -55,10 +56,14 @@
     padding: 10px 20px;
     font-size: 1em;
     cursor: pointer;
+    background-color: #d8dbdd;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
 }
 
 .tabTrigger[aria-selected="true"] {
-    background-color: #0070f3;
+    background-color: #252f3d;
     color: white;
 }
 
@@ -86,10 +91,6 @@
     outline: none;
 }
 
-.tabsContent {
-    padding: 20px;
-}
-
 .reloadIcon {
     width: 20px;
     height: 20px;
@@ -101,14 +102,14 @@
 .newItems {
     color: green;
     margin-bottom: 10px;
-    border: 1px solid green;
 }
 
 .product {
     display: flex;
     flex-direction: column;
     align-items: left;
-    padding-bottom: 32px; /* Add padding to the bottom to make space for shopInfo and priceText */
+    padding-bottom: 32px;
+    /* Add padding to the bottom to make space for shopInfo and priceText */
     margin-top: 10px;
     position: relative;
 }
@@ -137,7 +138,8 @@
 .shopInfo {
     display: flex;
     position: absolute;
-    bottom: 20px; /* Adjust as needed */
+    bottom: 20px;
+    /* Adjust as needed */
     font-size: 0.7em;
     justify-content: center;
     align-items: center;
