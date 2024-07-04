@@ -32,6 +32,25 @@ const SettingsPage: React.FC = () => {
   const handleToggleDeletePopup = () => {
     setDeletePopupOpen(!deletePopupOpen);
   };
+
+  const handleImportData = (data: string) => {
+    // Handle import logic here
+    console.log("Importing data");
+    setImportPopupOpen(false); // Close popup after import
+  };
+
+  const handleExportData = () => {
+    // Handle export logic here
+    console.log("Exporting data");
+    setExportPopupOpen(false); // Close popup after export
+  };
+
+  const handleDeleteData = () => {
+    // Handle delete logic here
+    console.log("Deleting data");
+    setDeletePopupOpen(false); // Close popup after delete
+  };
+
   return (
     <div className={notosansjp_regular.className}>
       <h1>設定</h1>
@@ -69,6 +88,7 @@ const SettingsPage: React.FC = () => {
               console.log("Importing data");
               setImportPopupOpen(false); // Close popup after import
             }}
+            onClose={() => setImportPopupOpen(false)}
           />
         )}
         {exportPopupOpen && (

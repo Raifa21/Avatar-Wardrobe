@@ -34,24 +34,33 @@
     /* Show the overlay when active */
 }
 
+.closeIcon {
+    position: absolute;
+    top: 20px;
+    right: 14px;
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+}
+
 .title {
     font-size: 1.2rem;
-    /* text-2xl equivalent */
     font-weight: 700;
-    /* font-bold equivalent */
     color: #000000;
-    /* text-primary equivalent */
     text-align: center;
-    margin-bottom: 10px;
-    /* Add margin for spacing */
+    margin-bottom: 2px;
 }
 
 .content {
     color: gray;
     text-align: center;
     font-size: 0.8rem;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     /* Add margin for spacing */
+}
+
+.subtitle {
+    margin-bottom: 15px;
 }
 
 .input {
@@ -62,6 +71,8 @@
     width: 380px;
     border: 1px solid #d8dbdd;
     border-radius: 4px;
+    height: 20px;
+    margin-bottom: 18px;
 }
 
 /* Flexbox utility classes for centering content */
@@ -72,9 +83,9 @@
 }
 
 /* Footer button container */
-.footer {
-    display: flex;
-    justify-content: space-between;
+.button {
     width: 100%;
-    margin-top: 10px;
+    border-radius: 5px;
+    border: none;
+    padding: 9px;
 }

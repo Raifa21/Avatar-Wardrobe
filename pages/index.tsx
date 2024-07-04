@@ -2,7 +2,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import axios from "axios";
 import clsx from "clsx";
-import { Noto_Sans_JP, Raleway_Dots } from "next/font/google";
+import { Noto_Sans_JP } from "next/font/google";
 import { useEffect, useState } from "react";
 import "../app/globals.css";
 import styles from "./home.module.css";

@@ -1,12 +1,13 @@
 import * as React from "react";
-import { Button } from "@/components/ui/button";
 import "./popups.css";
+import closeoutline from "../lib/eva-icons/outline/svg/close-outline.svg";
 
 type ImportPopupProps = {
   onImport: (data: string) => void;
+  onClose: () => void;
 };
 
-const ImportPopup: React.FC<ImportPopupProps> = ({ onImport }) => {
+const ImportPopup: React.FC<ImportPopupProps> = ({ onImport, onClose }) => {
   const [importedData, setImportedData] = React.useState("");
 
   const handleImport = () => {
@@ -14,12 +15,29 @@ const ImportPopup: React.FC<ImportPopupProps> = ({ onImport }) => {
     setImportedData(""); // Clear the input after import
   };
 
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
     <>
       <div className="popup-overlay active" />
       <div className="popup flex">
+        <img
+          className="closeIcon"
+          src={closeoutline.src}
+          alt="close"
+          onClick={onClose}
+        />
         <div className="title">インポート</div>
         <div className="content">
+          <div className="subtitle">
+            エクスポートしたセーブコードを貼り付けてください。
+            <br />
+            インポートすると、現在のデータは上書きされます。
+          </div>
           <input
             value={importedData}
             onChange={(e) => setImportedData(e.target.value)}
@@ -27,10 +45,9 @@ const ImportPopup: React.FC<ImportPopupProps> = ({ onImport }) => {
             className="input"
           />
         </div>
-        <div className="footer">
-          <Button onClick={handleImport}>インポート</Button>
-          <Button variant="outline">キャンセル</Button>
-        </div>
+        <button className="button" onClick={handleImport}>
+          インポート
+        </button>
       </div>
     </>
   );
