@@ -1,9 +1,13 @@
 "use client";
+import * as React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import axios from "axios";
 import clsx from "clsx";
 import { Noto_Sans_JP } from "next/font/google";
 import { useEffect, useState } from "react";
+import Sidebar from "@/components/sidebar";
+import "../components/settings.css";
+import "../components/popups.css";
 import "../app/globals.css";
 import styles from "./home.module.css";
 import editoutline from "../lib/eva-icons/outline/svg/edit-outline.svg";
@@ -11,7 +15,6 @@ import refreshoutline from "../lib/eva-icons/outline/svg/refresh-outline.svg";
 import gearoutline from "../lib/eva-icons/outline/svg/settings-2-outline.svg";
 import plusoutline from "../lib/eva-icons/outline/svg/plus-outline.svg";
 import { Badge } from "@/components/ui/badge";
-import Link from "next/link";
 
 const notosansjp_regular = Noto_Sans_JP({ subsets: ["latin"], weight: "300" });
 
@@ -45,6 +48,7 @@ export default function Home() {
   const [alteringName, setAlteringName] = useState<number | null>(null);
   const [isComposing, setIsComposing] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false); // State for toggling sidebar
 
   useEffect(() => {
     const savedTabs = localStorage.getItem("tabs");
@@ -191,142 +195,154 @@ export default function Home() {
       handleEditTabName(id, (e.target as HTMLInputElement).value);
     }
   };
+
   return (
     <div className={clsx(styles.container, notosansjp_regular.className)}>
-      <div className={styles.header}>
-        <h1 className={styles.title}>Avatar Wardrobe</h1>
-        <div className={styles.inputContainer}>
-          <input
-            type="text"
-            id="newTabTerm"
-            placeholder="アバターのリンクを入力"
-            value={newTabTerm}
-            onChange={(e) => setNewTabTerm(e.target.value)}
-            className={clsx(styles.input)}
+      {sidebarOpen && <Sidebar />}
+      <div className={styles.mainContent}>
+        <div className={styles.header}>
+          <h1 className={styles.title}>Avatar Wardrobe</h1>
+          <div className={styles.inputContainer}>
+            <input
+              type="text"
+              id="newTabTerm"
+              placeholder="アバターのリンクを入力"
+              value={newTabTerm}
+              onChange={(e) => setNewTabTerm(e.target.value)}
+              className={clsx(styles.input)}
+            />
+            <button onClick={addTab} className={styles.button}>
+              <img
+                src={plusoutline.src}
+                alt="add"
+                className={styles.plusIcon}
+              />
+            </button>
+          </div>
+          <img
+            src={gearoutline.src}
+            alt="gear"
+            className={styles.gearIcon}
+            onClick={() => setSidebarOpen(!sidebarOpen)}
           />
-          <button onClick={addTab} className={styles.button}>
-            <img src={plusoutline.src} alt="add" className={styles.plusIcon} />
-          </button>
         </div>
-        <Link href="/settings">
-          <img src={gearoutline.src} alt="gear" className={styles.gearIcon} />
-        </Link>
-      </div>
-      {tabs.length === 0 ? (
-        <p className={clsx(styles.noTabs)}>
-          新しいアバターを追加して始めましょう。
-        </p>
-      ) : (
-        <Tabs value={activeTabId?.toString()} className={styles.tabs}>
-          <TabsList className={styles.tabsList}>
+        {tabs.length === 0 ? (
+          <p className={clsx(styles.noTabs)}>
+            新しいアバターを追加して始めましょう。
+          </p>
+        ) : (
+          <Tabs value={activeTabId?.toString()} className={styles.tabs}>
+            <TabsList className={styles.tabsList}>
+              {tabs.map((tab) => (
+                <div className={styles.tabHeader} key={tab.id}>
+                  <TabsTrigger
+                    value={tab.id.toString()}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={styles.tabTrigger}
+                  >
+                    {tab.name}
+                  </TabsTrigger>
+                </div>
+              ))}
+            </TabsList>
             {tabs.map((tab) => (
-              <div className={styles.tabHeader} key={tab.id}>
-                <TabsTrigger
-                  value={tab.id.toString()}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={styles.tabTrigger}
-                >
-                  {tab.name}
-                </TabsTrigger>
-              </div>
-            ))}
-          </TabsList>
-          {tabs.map((tab) => (
-            <TabsContent
-              key={tab.id}
-              value={tab.id.toString()}
-              className={styles.tabsContent}
-            >
-              <div className={styles.tabHeader}>
-                {alteringName === tab.id ? (
-                  <input
-                    type="text"
-                    defaultValue={tab.name}
-                    onBlur={() => setAlteringName(null)} // Save changes when focus is lost
-                    onKeyDown={(e) => handleKeyDown(e, tab.id)}
-                    onCompositionStart={handleCompositionStart}
-                    onCompositionEnd={handleCompositionEnd}
-                    className={styles.editInput}
-                  />
-                ) : (
-                  <h2 className={clsx(styles.tabTitle)}>{tab.name}</h2>
-                )}
-                {alteringName !== tab.id && (
-                  <img
-                    src={editoutline.src}
-                    alt="Edit"
-                    className={styles.editIcon}
-                    onClick={() => setAlteringName(tab.id)}
-                  />
-                )}
-                <img
-                  src={refreshoutline.src}
-                  alt="Reload"
-                  className={styles.reloadIcon}
-                  onClick={() => handleReload(tab)}
-                />
-              </div>
-              {loading ? (
-                <p className={styles.newItems}>Loading...</p>
-              ) : (
-                <>
-                  {newItems.length > 0 && (
-                    <p className={styles.newItems}>
-                      新しい商品が見つかりました！
-                    </p>
+              <TabsContent
+                key={tab.id}
+                value={tab.id.toString()}
+                className={styles.tabsContent}
+              >
+                <div className={styles.tabHeader}>
+                  {alteringName === tab.id ? (
+                    <input
+                      type="text"
+                      defaultValue={tab.name}
+                      onBlur={() => setAlteringName(null)} // Save changes when focus is lost
+                      onKeyDown={(e) => handleKeyDown(e, tab.id)}
+                      onCompositionStart={handleCompositionStart}
+                      onCompositionEnd={handleCompositionEnd}
+                      className={styles.editInput}
+                    />
+                  ) : (
+                    <h2 className={clsx(styles.tabTitle)}>{tab.name}</h2>
                   )}
-                  <div className={styles.grid}>
-                    {tab.products.map((product) => (
-                      <div
-                        key={product.productId}
-                        className={clsx(
-                          styles.product,
-                          !tab.seenItems.has(product.productId) &&
-                            styles.newProduct,
-                        )}
-                      >
-                        <img
-                          onClick={() => {
-                            window.open(
-                              product.shopURL + "items/" + product.productId,
-                              "_blank",
-                            );
-                          }}
-                          src={product.imageURL}
-                          alt={product.productName}
-                          className={styles.largeImage}
-                        />
-                        <p className={styles.productName}>
-                          {product.productName}
-                        </p>
+                  {alteringName !== tab.id && (
+                    <img
+                      src={editoutline.src}
+                      alt="Edit"
+                      className={styles.editIcon}
+                      onClick={() => setAlteringName(tab.id)}
+                    />
+                  )}
+                  <img
+                    src={refreshoutline.src}
+                    alt="Reload"
+                    className={styles.reloadIcon}
+                    onClick={() => handleReload(tab)}
+                  />
+                </div>
+                {loading ? (
+                  <p className={styles.newItems}>Loading...</p>
+                ) : (
+                  <>
+                    {newItems.length > 0 && (
+                      <p className={styles.newItems}>
+                        新しい商品が見つかりました！
+                      </p>
+                    )}
+                    <div className={styles.grid}>
+                      {tab.products.map((product) => (
                         <div
-                          onClick={() => {
-                            window.open(product.shopURL, "_blank");
-                          }}
-                          className={styles.shopInfo}
+                          key={product.productId}
+                          className={clsx(
+                            styles.product,
+                            !tab.seenItems.has(product.productId) &&
+                              styles.newProduct,
+                          )}
                         >
                           <img
-                            src={product.shopImageURL}
-                            alt={product.shopName}
-                            className={styles.smallImage}
+                            onClick={() => {
+                              window.open(
+                                product.shopURL + "items/" + product.productId,
+                                "_blank",
+                              );
+                            }}
+                            src={product.imageURL}
+                            alt={product.productName}
+                            className={styles.largeImage}
                           />
-                          {product.shopName}
+                          <p className={styles.productName}>
+                            {product.productName}
+                          </p>
+                          <div
+                            onClick={() => {
+                              window.open(product.shopURL, "_blank");
+                            }}
+                            className={styles.shopInfo}
+                          >
+                            <img
+                              src={product.shopImageURL}
+                              alt={product.shopName}
+                              className={styles.smallImage}
+                            />
+                            {product.shopName}
+                          </div>
+                          <div className={clsx(styles.priceText)}>
+                            ¥ {product.productPrice}
+                          </div>
+                          {newItems.some(
+                            (newItem) =>
+                              newItem.productId === product.productId,
+                          ) && <Badge className={styles.newBadge}>New!</Badge>}
                         </div>
-                        <div className={clsx(styles.priceText)}>
-                          ¥ {product.productPrice}
-                        </div>
-                        {newItems.some(
-                          (newItem) => newItem.productId === product.productId,
-                        ) && <Badge className={styles.newBadge}>New!</Badge>}
-                      </div>
-                    ))}
-                  </div>
-                </>
-              )}
-            </TabsContent>
-          ))}
-        </Tabs>
-      )}
+                      ))}
+                    </div>
+                  </>
+                )}
+              </TabsContent>
+            ))}
+          </Tabs>
+        )}
+      </div>
     </div>
   );
 }

@@ -1,24 +1,25 @@
+"use client";
 import * as React from "react";
 import ImportPopup from "../components/importpopup";
 import ExportPopup from "../components/exportpopup";
 import DeletePopup from "../components/deletepopup";
 import { Button } from "@/components/ui/button";
 import { Noto_Sans_JP } from "next/font/google";
-import styles from "./settings.module.css";
+import "./popups.css";
+import "./sidebar.css";
 
 const notosansjp_regular = Noto_Sans_JP({ subsets: ["latin"], weight: "300" });
 
-const SettingsPage: React.FC = () => {
+const Sidebar: React.FC = () => {
   const [importPopupOpen, setImportPopupOpen] = React.useState(false);
   const [exportPopupOpen, setExportPopupOpen] = React.useState(false);
   const [deletePopupOpen, setDeletePopupOpen] = React.useState(false);
   const [language, setLanguage] = React.useState("JP"); // Default language set to Japanese
+  const [exportData, setExportData] = React.useState("");
 
   const handleLanguageChange = (selectedLanguage: string) => {
-    // Handle language change logic
     console.log(`Switching language to ${selectedLanguage}`);
     setLanguage(selectedLanguage);
-    // Example: You might want to set a state for language preference here
   };
 
   const handleToggleImportPopup = () => {
@@ -34,25 +35,22 @@ const SettingsPage: React.FC = () => {
   };
 
   const handleImportData = (data: string) => {
-    // Handle import logic here
-    console.log("Importing data");
+    console.log("Importing data:", data);
     setImportPopupOpen(false); // Close popup after import
   };
 
   const handleExportData = () => {
-    // Handle export logic here
     console.log("Exporting data");
     setExportPopupOpen(false); // Close popup after export
   };
 
   const handleDeleteData = () => {
-    // Handle delete logic here
     console.log("Deleting data");
     setDeletePopupOpen(false); // Close popup after delete
   };
 
   return (
-    <div className={notosansjp_regular.className}>
+    <div className={`sidebar ${notosansjp_regular.className}`}>
       <h1>設定</h1>
       <div>
         <h2>言語設定</h2>
@@ -77,41 +75,6 @@ const SettingsPage: React.FC = () => {
           English
         </label>
       </div>
-      <div
-        className={`popup-overlay ${importPopupOpen || exportPopupOpen || deletePopupOpen ? "active" : ""}`}
-      />
-      <div>
-        {importPopupOpen && (
-          <ImportPopup
-            onImport={() => {
-              // Handle import logic here
-              console.log("Importing data");
-              setImportPopupOpen(false); // Close popup after import
-            }}
-            onClose={() => setImportPopupOpen(false)}
-          />
-        )}
-        {exportPopupOpen && (
-          <ExportPopup
-            onExport={() => {
-              // Handle export logic here
-              console.log("Exporting data");
-              setExportPopupOpen(false); // Close popup after export
-            }}
-            onClose={() => setExportPopupOpen(false)}
-          />
-        )}
-        {deletePopupOpen && (
-          <DeletePopup
-            onDelete={() => {
-              // Handle delete logic here
-              console.log("Deleting data");
-              setDeletePopupOpen(false); // Close popup after delete
-            }}
-            onClose={() => setDeletePopupOpen(false)}
-          />
-        )}
-      </div>
       <div>
         <Button onClick={handleToggleImportPopup}>データをインポート</Button>
         <Button onClick={handleToggleExportPopup}>データをエクスポート</Button>
@@ -119,8 +82,27 @@ const SettingsPage: React.FC = () => {
       <div>
         <Button onClick={handleToggleDeletePopup}>データをリセット</Button>
       </div>
+      {importPopupOpen && (
+        <ImportPopup
+          onImport={handleImportData}
+          onClose={() => setImportPopupOpen(false)}
+        />
+      )}
+      {exportPopupOpen && (
+        <ExportPopup
+          exportData={exportData}
+          onExport={handleExportData}
+          onClose={() => setExportPopupOpen(false)}
+        />
+      )}
+      {deletePopupOpen && (
+        <DeletePopup
+          onDelete={handleDeleteData}
+          onClose={() => setDeletePopupOpen(false)}
+        />
+      )}
     </div>
   );
 };
 
-export default SettingsPage;
+export default Sidebar;
