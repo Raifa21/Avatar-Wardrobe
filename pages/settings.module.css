@@ -11,6 +11,10 @@
     background-color: #ffffff; /* bg-background equivalent */
     transition-duration: 0.2s; /* duration-200 equivalent */
     padding: 20px;
-    border: 1px solid black;
     border-radius: 5px;
+}
+.title {
+    font-size: 1.5rem; /* text-2xl equivalent */
+    font-weight: 700; /* font-bold equivalent */
+    color: #000000; /* text-primary equivalent */
 }
