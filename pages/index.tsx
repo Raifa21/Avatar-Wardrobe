@@ -1,15 +1,17 @@
+"use client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import axios from "axios";
 import clsx from "clsx";
 import { Noto_Sans_JP, Raleway_Dots } from "next/font/google";
 import { useEffect, useState } from "react";
 import "../app/globals.css";
-import styles from "./index.module.css";
+import styles from "./home.module.css";
 import editoutline from "../lib/eva-icons/outline/svg/edit-outline.svg";
 import refreshoutline from "../lib/eva-icons/outline/svg/refresh-outline.svg";
 import gearoutline from "../lib/eva-icons/outline/svg/settings-2-outline.svg";
 import plusoutline from "../lib/eva-icons/outline/svg/plus-outline.svg";
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 
 const notosansjp_regular = Noto_Sans_JP({ subsets: ["latin"], weight: "300" });
 
@@ -189,7 +191,6 @@ export default function Home() {
       handleEditTabName(id, (e.target as HTMLInputElement).value);
     }
   };
-
   return (
     <div className={clsx(styles.container, notosansjp_regular.className)}>
       <div className={styles.header}>
@@ -207,7 +208,9 @@ export default function Home() {
             <img src={plusoutline.src} alt="add" className={styles.plusIcon} />
           </button>
         </div>
-        <img src={gearoutline.src} alt="gear" className={styles.gearIcon} />
+        <Link href="/settings">
+          <img src={gearoutline.src} alt="gear" className={styles.gearIcon} />
+        </Link>
       </div>
       {tabs.length === 0 ? (
         <p className={clsx(styles.noTabs)}>
