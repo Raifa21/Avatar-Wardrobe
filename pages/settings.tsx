@@ -2,6 +2,11 @@ import * as React from "react";
 import ImportPopup from "../components/importpopup";
 import ExportPopup from "../components/exportpopup";
 import DeletePopup from "../components/deletepopup";
+import { Button } from "@/components/ui/button";
+import { Noto_Sans_JP } from "next/font/google";
+import styles from "./settings.module.css";
+
+const notosansjp_regular = Noto_Sans_JP({ subsets: ["latin"], weight: "300" });
 
 const SettingsPage: React.FC = () => {
   const [importPopupOpen, setImportPopupOpen] = React.useState(false);
@@ -16,26 +21,19 @@ const SettingsPage: React.FC = () => {
     // Example: You might want to set a state for language preference here
   };
 
-  const handleImportData = (data: string) => {
-    console.log("Importing data:", data);
-    // Handle import data logic here
-    setImportPopupOpen(false); // Close import popup after importing data
+  const handleToggleImportPopup = () => {
+    setImportPopupOpen(!importPopupOpen);
   };
 
-  const handleExportData = () => {
-    console.log("Exporting data");
-    // Handle export data logic here
-    setExportPopupOpen(false); // Close export popup after exporting data
+  const handleToggleExportPopup = () => {
+    setExportPopupOpen(!exportPopupOpen);
   };
 
-  const handleDeleteData = () => {
-    console.log("Deleting data");
-    // Handle delete data logic here
-    setDeletePopupOpen(false); // Close delete popup after deleting data
+  const handleToggleDeletePopup = () => {
+    setDeletePopupOpen(!deletePopupOpen);
   };
-
   return (
-    <div>
+    <div className={notosansjp_regular.className}>
       <h1>設定</h1>
       <div>
         <h2>言語設定</h2>
@@ -60,12 +58,44 @@ const SettingsPage: React.FC = () => {
           English
         </label>
       </div>
-      <div>
-        <ImportPopup open={importPopupOpen} onImport={handleImportData} />
-        <ExportPopup open={exportPopupOpen} onExport={handleExportData} />
+      <div
+        className={`popup-overlay ${importPopupOpen || exportPopupOpen || deletePopupOpen ? "active" : ""}`}
+      />
+      <div className={styles.popup}>
+        {importPopupOpen && (
+          <ImportPopup
+            onImport={() => {
+              // Handle import logic here
+              console.log("Importing data");
+              setImportPopupOpen(false); // Close popup after import
+            }}
+          />
+        )}
+        {exportPopupOpen && (
+          <ExportPopup
+            onExport={() => {
+              // Handle export logic here
+              console.log("Exporting data");
+              setExportPopupOpen(false); // Close popup after export
+            }}
+          />
+        )}
+        {deletePopupOpen && (
+          <DeletePopup
+            onDelete={() => {
+              // Handle delete logic here
+              console.log("Deleting data");
+              setDeletePopupOpen(false); // Close popup after delete
+            }}
+          />
+        )}
       </div>
       <div>
-        <DeletePopup open={deletePopupOpen} onDelete={handleDeleteData} />
+        <Button onClick={handleToggleImportPopup}>データをインポート</Button>
+        <Button onClick={handleToggleExportPopup}>データをエクスポート</Button>
+      </div>
+      <div>
+        <Button onClick={handleToggleDeletePopup}>データをリセット</Button>
       </div>
     </div>
   );

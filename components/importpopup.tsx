@@ -1,36 +1,23 @@
 import * as React from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import "./popups.css";
 
 type ImportPopupProps = {
-  open: boolean;
-  onImport: (data: string) => void;
+  onImport: () => void;
 };
 
-const ImportPopup: React.FC<ImportPopupProps> = ({ open, onImport }) => {
-  const [importedData, setImportedData] = React.useState<string>("");
+const ImportPopup: React.FC<ImportPopupProps> = ({ onImport }) => {
+  const [importedData, setImportedData] = React.useState("");
 
   const handleImport = () => {
-    onImport(importedData);
-    setImportedData(""); // Clear imported data after import
+    onImport();
   };
 
   return (
-    <Dialog open={open}>
-      <DialogHeader>
-        <DialogTitle>データをインポート</DialogTitle>
-      </DialogHeader>
-      <DialogContent>
-        <DialogDescription>
-          ここにインポートするデータを貼り付けてください。
-        </DialogDescription>
+    <div className="popup">
+      <div className="title">データをインポート</div>
+      <div className="content">
+        ここにインポートするデータを貼り付けてください。
         <textarea
           value={importedData}
           onChange={(e) => setImportedData(e.target.value)}
@@ -38,11 +25,11 @@ const ImportPopup: React.FC<ImportPopupProps> = ({ open, onImport }) => {
           rows={5}
           className="w-full p-2 border rounded-md"
         />
-      </DialogContent>
-      <DialogFooter>
-        <Button onClick={handleImport}>インポート</Button>
-      </DialogFooter>
-    </Dialog>
+        <div className="footer">
+          <Button onClick={handleImport}>インポート</Button>
+        </div>
+      </div>
+    </div>
   );
 };
 

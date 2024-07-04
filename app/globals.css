@@ -1,3 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Radix UI or Other Component Library Imports */
+@import "@radix-ui/react-dialog/dist/dialog.css";
+@import "@radix-ui/react-popup-menu/dist/menu.css";
+/* Import other Radix UI or library styles as needed */
+
+/* Global Styles */
+/* Add any custom global styles or resets here */
 body {
-    background-color: #f1f1f1;
+    font-family: "Noto Sans JP", sans-serif; /* Example font-family */
 }
