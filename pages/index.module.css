@@ -11,6 +11,7 @@
 }
 
 .inputContainer {
+    margin-top: 5px;
     display: flex;
     align-items: center;
     border: 1px solid #d8dbdd;
@@ -144,6 +145,19 @@
     /* Add padding to the bottom to make space for shopInfo and priceText */
     margin-top: 10px;
     position: relative;
+}
+
+.newProduct {
+    border: 1px solid #d8dbdd;
+    border-radius: 5px;
+}
+
+.newBadge {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    color: green;
+    font-size: 0.8em;
 }
 
 .product .largeImage {

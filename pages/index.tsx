@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import axios from "axios";
 import clsx from "clsx";
-import { Noto_Sans_JP } from "next/font/google";
+import { Noto_Sans_JP, Raleway_Dots } from "next/font/google";
 import { useEffect, useState } from "react";
 import "../app/globals.css";
 import styles from "./index.module.css";
@@ -9,6 +9,7 @@ import editoutline from "../lib/eva-icons/outline/svg/edit-outline.svg";
 import refreshoutline from "../lib/eva-icons/outline/svg/refresh-outline.svg";
 import gearoutline from "../lib/eva-icons/outline/svg/settings-2-outline.svg";
 import plusoutline from "../lib/eva-icons/outline/svg/plus-outline.svg";
+import { Badge } from "@/components/ui/badge";
 
 const notosansjp_regular = Noto_Sans_JP({ subsets: ["latin"], weight: "300" });
 
@@ -154,7 +155,7 @@ export default function Home() {
       setNewTabTerm("");
     } else {
       const tabCount = tabs.length;
-      const defaultName = `Tab ${tabCount + 1}`;
+      const defaultName = `アバター ${tabCount + 1}`;
       const newTab: Tab = {
         id: Date.now(),
         name: newTabName || defaultName,
@@ -197,7 +198,7 @@ export default function Home() {
           <input
             type="text"
             id="newTabTerm"
-            placeholder="Search Term"
+            placeholder="アバターのリンクを入力"
             value={newTabTerm}
             onChange={(e) => setNewTabTerm(e.target.value)}
             className={clsx(styles.input)}
@@ -210,7 +211,7 @@ export default function Home() {
       </div>
       {tabs.length === 0 ? (
         <p className={clsx(styles.noTabs)}>
-          No tabs created yet. Add a new tab to start searching.
+          新しいアバターを追加して始めましょう。
         </p>
       ) : (
         <Tabs value={activeTabId?.toString()} className={styles.tabs}>
@@ -267,7 +268,9 @@ export default function Home() {
               ) : (
                 <>
                   {newItems.length > 0 && (
-                    <p className={styles.newItems}>New items found!</p>
+                    <p className={styles.newItems}>
+                      新しい商品が見つかりました！
+                    </p>
                   )}
                   <div className={styles.grid}>
                     {tab.products.map((product) => (
@@ -309,6 +312,9 @@ export default function Home() {
                         <div className={clsx(styles.priceText)}>
                           ¥ {product.productPrice}
                         </div>
+                        {newItems.some(
+                          (newItem) => newItem.productId === product.productId,
+                        ) && <Badge className={styles.newBadge}>New!</Badge>}
                       </div>
                     ))}
                   </div>
