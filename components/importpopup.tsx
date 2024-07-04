@@ -22,9 +22,8 @@ const ImportPopup: React.FC<ImportPopupProps> = ({ onImport, onClose }) => {
   };
 
   return (
-    <>
-      <div className="popup-overlay active" />
-      <div className="popup flex">
+    <div className="popup-overlay active" onClick={handleOverlayClick}>
+      <div className="popup">
         <img
           className="closeIcon"
           src={closeoutline.src}
@@ -49,7 +48,7 @@ const ImportPopup: React.FC<ImportPopupProps> = ({ onImport, onClose }) => {
           インポート
         </button>
       </div>
-    </>
+    </div>
   );
 };
 

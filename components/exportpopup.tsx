@@ -1,41 +1,51 @@
 import * as React from "react";
-import { Button } from "@/components/ui/button";
+import "./popups.css";
 import { Copy } from "lucide-react";
+import closeoutline from "../lib/eva-icons/outline/svg/close-outline.svg";
 
 type ExportPopupProps = {
+  exportData: string;
   onExport: () => void;
+  onClose: () => void;
 };
 
-const ExportPopup: React.FC<ExportPopupProps> = ({ onExport }) => {
+const ExportPopup: React.FC<ExportPopupProps> = ({
+  onExport,
+  onClose,
+  exportData,
+}) => {
   const handleExport = () => {
     onExport();
   };
 
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="popup">
-      <div className="title">データをエクスポート</div>
-      <div className="content">
-        エクスポートしたいデータをクリップボードにコピーしてください。
-        <div className="flex items-center space-x-2">
-          <div className="grid flex-1 gap-2">
-            <textarea
-              defaultValue=""
-              readOnly
-              className="w-full p-2 border rounded-md"
-              rows={5}
-            />
-          </div>
+    <div className="popup-overlay active" onClick={handleOverlayClick}>
+      <div className="popup">
+        <img
+          className="closeIcon"
+          src={closeoutline.src}
+          alt="close"
+          onClick={onClose}
+        />
+        <div className="title">エクスポート</div>
+        <div className="content">
+          <div className="subtitle">現在のデータをエクスポートしますか？</div>
         </div>
-        <div className="footer">
-          <Button
-            type="submit"
-            size="sm"
-            className="px-3"
-            onClick={handleExport}
-          >
-            <Copy className="h-4 w-4" />
-          </Button>
+        <div className="exportcontent">
+          <input className="exportdata" readOnly value={exportData} />
+          <button className="exportbutton" onClick={handleExport}>
+            <Copy className="copyIcon" />
+          </button>
         </div>
+        <button className="button" onClick={onClose}>
+          閉じる
+        </button>
       </div>
     </div>
   );

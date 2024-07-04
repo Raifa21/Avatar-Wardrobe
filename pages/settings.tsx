@@ -80,7 +80,7 @@ const SettingsPage: React.FC = () => {
       <div
         className={`popup-overlay ${importPopupOpen || exportPopupOpen || deletePopupOpen ? "active" : ""}`}
       />
-      <div className={styles.popup}>
+      <div>
         {importPopupOpen && (
           <ImportPopup
             onImport={() => {
@@ -98,6 +98,7 @@ const SettingsPage: React.FC = () => {
               console.log("Exporting data");
               setExportPopupOpen(false); // Close popup after export
             }}
+            onClose={() => setExportPopupOpen(false)}
           />
         )}
         {deletePopupOpen && (
@@ -107,6 +108,7 @@ const SettingsPage: React.FC = () => {
               console.log("Deleting data");
               setDeletePopupOpen(false); // Close popup after delete
             }}
+            onClose={() => setDeletePopupOpen(false)}
           />
         )}
       </div>
