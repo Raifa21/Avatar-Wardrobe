@@ -7,3 +7,25 @@ body {
     font-family: "Noto Sans JP", sans-serif; /* Example font-family */
     background: #f1f1f1;
 }
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    color: #000;
+    text-align: center;
+    width: 120px;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+    position: absolute;
+    z-index: 1;
+    font-size: 0.8em;
+    padding: 5px;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}

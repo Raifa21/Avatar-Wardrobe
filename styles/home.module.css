@@ -2,6 +2,7 @@
     padding-left: 8%;
     padding-right: 8%;
 }
+
 .sidebar-container {
     position: fixed;
     top: 0;
@@ -9,9 +10,12 @@
     height: 100%;
     width: 0;
     overflow-x: hidden;
-    transition: width 0.3s ease-out; /* Adjust timing as needed */
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
-    z-index: 1000; /* Ensure sidebar overlays everything else */
+    transition: width 0.3s ease-out;
+    /* Adjust timing as needed */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent overlay */
+    z-index: 1000;
+    /* Ensure sidebar overlays everything else */
 }
 
 .sidebar {
@@ -19,26 +23,32 @@
     top: 0;
     right: 0;
     height: 100%;
-    width: 300px; /* Initial width of sidebar */
+    width: 300px;
+    /* Initial width of sidebar */
     background-color: white;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2); /* Shadow on the side */
-    transition: transform 0.3s ease-out; /* Adjust timing as needed */
-    transform: translateX(100%); /* Initially off-screen */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    /* Shadow on the side */
+    transition: transform 0.3s ease-out;
+    /* Adjust timing as needed */
+    transform: translateX(100%);
+    /* Initially off-screen */
 }
 
 .sidebar.open {
-    transform: translateX(0); /* Slide sidebar into view */
+    transform: translateX(0);
+    /* Slide sidebar into view */
 }
 
 .sidebar.closed {
-    transform: translateX(100%); /* Slide sidebar off-screen */
+    transform: translateX(100%);
+    /* Slide sidebar off-screen */
 }
 
 .title {
     font-size: 1.2em;
     align-items: center;
     justify-self: center;
-    margin-right: 25px;
+    margin-right: 0px;
     margin-top: 5px;
 }
 
@@ -58,23 +68,27 @@
 .header {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Ensures items are spaced evenly */
+    justify-content: space-between;
+    /* Ensures items are spaced evenly */
     border-bottom: 1px solid #d8dbdd;
     margin-top: 20px;
     padding-bottom: 20px;
 }
+
 .plusIcon {
     width: 20px;
     height: 20px;
     cursor: pointer;
     align-self: center;
+    padding-bottom: 2px;
 }
 
 .input {
     padding: 10px;
     font-size: 1em;
     background-color: transparent;
-    width: 20vw;
+    width: 30vw;
+    min-width: 100px;
     border: none;
     border-radius: 4px 0px 0px 4px;
 }
@@ -86,7 +100,7 @@
     border-radius: 0px 4px 4px 0px;
     padding: 8px 12px;
     cursor: pointer;
-    padding-top: 9px;
+    padding-top: 10px;
 }
 
 .button:hover {
@@ -100,14 +114,17 @@
     align-self: center;
     margin-left: auto;
 }
+
 .tabs {
     width: 100%;
 }
 
 .tabsList {
     display: flex;
-    overflow-x: auto; /* Enable horizontal scrolling */
-    white-space: nowrap; /* Prevent tabs from wrapping to new lines */
+    overflow-x: auto;
+    /* Enable horizontal scrolling */
+    white-space: nowrap;
+    /* Prevent tabs from wrapping to new lines */
     height: 100%;
     justify-content: left;
 }
@@ -207,7 +224,7 @@
     font-size: 0.8em;
     margin-top: 10px;
     word-spacing: 0.1px;
-    font-weight: 100 important!;
+    font-weight: 100 important !;
     cursor: default;
 }
 

@@ -13,6 +13,10 @@ import refreshoutline from "../lib/eva-icons/outline/svg/refresh-outline.svg";
 import gearoutline from "../lib/eva-icons/outline/svg/settings-2-outline.svg";
 import plusoutline from "../lib/eva-icons/outline/svg/plus-outline.svg";
 import { Badge } from "@/components/ui/badge";
+import { validate as validateJSON } from "jsonschema";
+import Ajv, { JSONSchemaType } from "ajv";
+
+const ajv = new Ajv();
 
 const notosansjp_regular = Noto_Sans_JP({ subsets: ["latin"], weight: "300" });
 
@@ -48,6 +52,45 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false); // State for toggling sidebar
   const [language, setLanguage] = useState("JP");
+  const tabSchema: JSONSchemaType<Tab> = {
+    type: "object",
+    definitions: {
+      product: {
+        type: "object",
+        properties: {
+          productId: { type: "number" },
+          productBrand: { type: "string" },
+          productCategory: { type: "number" },
+          productName: { type: "string" },
+          productPrice: { type: "number" },
+          imageURL: { type: "string" },
+          shopName: { type: "string" },
+          shopURL: { type: "string" },
+          shopImageURL: { type: "string" },
+        },
+        required: [
+          "productId",
+          "productBrand",
+          "productCategory",
+          "productName",
+          "productPrice",
+          "imageURL",
+          "shopName",
+          "shopURL",
+          "shopImageURL",
+        ],
+      },
+    },
+    properties: {
+      id: { type: "number" },
+      name: { type: "string" },
+      term: { type: "string" },
+      products: { type: "array", items: { $ref: "#/definitions/product" } },
+      seenItems: { type: "array", items: { type: "number" } },
+      newItems: { type: "array", items: { $ref: "#/definitions/product" } },
+    },
+    required: ["id", "name", "term", "products", "seenItems", "newItems"],
+  };
 
   useEffect(() => {
     const savedTabs = localStorage.getItem("tabs");
@@ -215,13 +258,22 @@ export default function Home() {
     const jsonData = data.replace("data:text/json;charset=utf-8,", "");
 
     try {
-      const importedTabs: Tab[] = JSON.parse(decodeURIComponent(jsonData)).map(
-        (tab: any) => ({
-          ...tab,
-          seenItems: new Set(tab.seenItems),
-          hasNewItem: tab.hasNewItem || false, // Ensure hasNewItem is defaulted if not present
-        }),
-      );
+      const parsedData = JSON.parse(decodeURIComponent(jsonData));
+
+      // Validate the JSON structure
+      const validationResult = validateJSON(parsedData, importSchema);
+      if (!validationResult.valid) {
+        console.error("Invalid JSON structure:", validationResult.errors);
+        // Handle error state or show error message
+        return;
+      }
+
+      const importedTabs: Tab[] = parsedData.map((tab: any) => ({
+        ...tab,
+        seenItems: new Set(tab.seenItems),
+        hasNewItem: tab.hasNewItem || false, // Ensure hasNewItem is defaulted if not present
+      }));
+
       setTabs(importedTabs);
       if (importedTabs.length > 0) {
         setActiveTabId(importedTabs[0].id);
@@ -238,9 +290,7 @@ export default function Home() {
       seenItems: Array.from(tab.seenItems),
     }));
 
-    const dataStr =
-      "data:text/json;charset=utf-8," +
-      encodeURIComponent(JSON.stringify(tabsData));
+    const dataStr = encodeURIComponent(JSON.stringify(tabsData));
     return dataStr;
   };
 
@@ -285,12 +335,9 @@ export default function Home() {
               />
             </button>
           </div>
-          <img
-            src={gearoutline.src}
-            alt="gear"
-            className={styles.gearIcon}
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-          />
+          <button onClick={handleToggleSidebarOpen}>
+            <img src={gearoutline.src} alt="gear" className={styles.gearIcon} />
+          </button>
         </div>
         {tabs.length === 0 ? (
           <p className={clsx(styles.noTabs)}>
