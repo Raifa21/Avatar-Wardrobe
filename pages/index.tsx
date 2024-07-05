@@ -200,9 +200,59 @@ export default function Home() {
     }
   };
 
+  const handleToggleSidebarOpen = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  const handleImportData = (data: string) => {
+    // Remove the data URI prefix if present
+    const jsonData = data.replace("data:text/json;charset=utf-8,", "");
+
+    try {
+      const importedTabs: Tab[] = JSON.parse(decodeURIComponent(jsonData)).map(
+        (tab: any) => ({
+          ...tab,
+          seenItems: new Set(tab.seenItems),
+          hasNewItem: tab.hasNewItem || false, // Ensure hasNewItem is defaulted if not present
+        }),
+      );
+      setTabs(importedTabs);
+      if (importedTabs.length > 0) {
+        setActiveTabId(importedTabs[0].id);
+      }
+    } catch (err) {
+      console.error("Error parsing imported tabs data:", err);
+      // Handle error state or show error message
+    }
+  };
+
+  const handleExportData = () => {
+    const tabsData = tabs.map((tab) => ({
+      ...tab,
+      seenItems: Array.from(tab.seenItems),
+    }));
+
+    const dataStr =
+      "data:text/json;charset=utf-8," +
+      encodeURIComponent(JSON.stringify(tabsData));
+    return dataStr;
+  };
+
+  const handleResetData = () => {
+    setTabs([]);
+    setActiveTabId(null);
+  };
+
   return (
     <div className={clsx(styles.container, notosansjp_regular.className)}>
-      {sidebarOpen && <Sidebar />}
+      {sidebarOpen && (
+        <Sidebar
+          onImport={handleImportData}
+          onExport={handleExportData}
+          onDelete={handleResetData}
+          onClose={handleToggleSidebarOpen}
+        />
+      )}
       <div className={styles.mainContent}>
         <div className={styles.header}>
           <h1 className={styles.title}>Avatar Wardrobe</h1>

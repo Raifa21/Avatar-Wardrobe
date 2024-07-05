@@ -5,21 +5,24 @@ import closeoutline from "../lib/eva-icons/outline/svg/close-outline.svg";
 
 type ExportPopupProps = {
   exportData: string;
-  onExport: () => void;
   onClose: () => void;
 };
 
-const ExportPopup: React.FC<ExportPopupProps> = ({
-  onExport,
-  onClose,
-  exportData,
-}) => {
-  const handleExport = () => {
-    onExport();
-  };
+const ExportPopup: React.FC<ExportPopupProps> = ({ onClose, exportData }) => {
+  const exportDataRef = React.useRef<HTMLInputElement>(null);
 
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
+  const handleCopy = () => {
+    if (exportDataRef.current) {
+      exportDataRef.current.select();
+      document.execCommand("copy");
+
+      // Show confirmation message
       onClose();
     }
   };
@@ -38,8 +41,13 @@ const ExportPopup: React.FC<ExportPopupProps> = ({
           <div className="subtitle">現在のデータをエクスポートしますか？</div>
         </div>
         <div className="exportcontent">
-          <input className="exportdata" readOnly value={exportData} />
-          <button className="exportbutton" onClick={handleExport}>
+          <input
+            className="exportdata"
+            ref={exportDataRef}
+            readOnly
+            value={exportData}
+          />
+          <button className="exportbutton" onClick={handleCopy}>
             <Copy className="copyIcon" />
           </button>
         </div>
