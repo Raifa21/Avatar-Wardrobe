@@ -6,7 +6,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 400px;
+    width: 420px;
     border-radius: 5px;
     z-index: 1000;
     background-color: #ffffff;
@@ -45,7 +45,7 @@
     height: 18px;
 }
 
-.title {
+.popup-title {
     font-size: 1.2rem;
     font-weight: 700;
     color: #000000;
@@ -53,7 +53,7 @@
     margin-bottom: 2px;
 }
 
-.content {
+.popup-content {
     color: gray;
     text-align: center;
     font-size: 0.8rem;
@@ -62,19 +62,18 @@
 }
 
 .subtitle {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
-.input {
-    margin-top: 10px;
+.popup-input {
+    margin-top: 20px;
     padding: 8px;
     font-size: 1em;
     background-color: transparent;
     width: 380px;
     border: 1px solid #d8dbdd;
     border-radius: 4px;
-    height: 20px;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
 }
 
 /* Flexbox utility classes for centering content */
@@ -85,12 +84,13 @@
 }
 
 /* Footer button container */
-.button {
+.popup-button {
     width: 100%;
     border-radius: 5px;
     border: none;
     padding: 9px;
     cursor: pointer;
+    background-color: #d8dbdd;
 }
 
 .exportcontent {
@@ -104,9 +104,9 @@
     font-size: 1em;
     background-color: transparent;
     width: 330px;
+    height: 40px;
     border: 1px solid #d8dbdd;
     border-radius: 4px;
-    height: 20px;
 }
 
 .copyIcon {
@@ -115,12 +115,13 @@
     justify-items: center;
     width: 15px;
     height: 15px;
-    margin: 5px 2px;
 }
+
 .exportbutton {
     border-radius: 5px;
+    background-color: #d8dbdd;
     border: none;
-    padding: 5px 10px;
+    padding: 5px 12px;
     margin-left: 10px;
     cursor: pointer;
 }

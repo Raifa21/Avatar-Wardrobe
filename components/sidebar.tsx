@@ -5,8 +5,7 @@ import ExportPopup from "../components/exportpopup";
 import DeletePopup from "../components/deletepopup";
 import { Button } from "@/components/ui/button";
 import { Noto_Sans_JP } from "next/font/google";
-import "./popups.css";
-import "./sidebar.css";
+import "../styles/sidebar.css";
 
 const notosansjp_regular = Noto_Sans_JP({ subsets: ["latin"], weight: "300" });
 

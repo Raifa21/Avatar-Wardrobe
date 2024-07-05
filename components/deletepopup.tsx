@@ -1,5 +1,5 @@
 import * as React from "react";
-import "./popups.css";
+import "../styles/popups.css";
 import closeoutline from "../lib/eva-icons/outline/svg/close-outline.svg";
 
 type DeletePopupProps = {
@@ -27,13 +27,13 @@ const DeletePopup: React.FC<DeletePopupProps> = ({ onDelete, onClose }) => {
           alt="close"
           onClick={onClose}
         />
-        <div className="title">データのリセット</div>
-        <div className="content">
+        <div className="popup-title">データのリセット</div>
+        <div className="popup-content">
           <div className="subtitle">
             本当にデータをリセットしますか？この操作は取り消せません。
           </div>
         </div>
-        <button className="button" onClick={handleDelete}>
+        <button className="popup-button" onClick={handleDelete}>
           リセット
         </button>
       </div>

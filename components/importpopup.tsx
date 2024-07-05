@@ -1,6 +1,6 @@
 import * as React from "react";
-import "./popups.css";
 import closeoutline from "../lib/eva-icons/outline/svg/close-outline.svg";
+import "../styles/popups.css";
 
 type ImportPopupProps = {
   onImport: (data: string) => void;
@@ -30,8 +30,8 @@ const ImportPopup: React.FC<ImportPopupProps> = ({ onImport, onClose }) => {
           alt="close"
           onClick={onClose}
         />
-        <div className="title">インポート</div>
-        <div className="content">
+        <div className="popup-title">インポート</div>
+        <div className="popup-content">
           <div className="subtitle">
             エクスポートしたセーブコードを貼り付けてください。
             <br />
@@ -41,10 +41,10 @@ const ImportPopup: React.FC<ImportPopupProps> = ({ onImport, onClose }) => {
             value={importedData}
             onChange={(e) => setImportedData(e.target.value)}
             placeholder="ここにインポートするデータを貼り付けてください"
-            className="input"
+            className="popup-input"
           />
         </div>
-        <button className="button" onClick={handleImport}>
+        <button className="popup-button" onClick={handleImport}>
           インポート
         </button>
       </div>

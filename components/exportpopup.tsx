@@ -1,5 +1,5 @@
 import * as React from "react";
-import "./popups.css";
+import "../styles/popups.css";
 import { Copy } from "lucide-react";
 import closeoutline from "../lib/eva-icons/outline/svg/close-outline.svg";
 
@@ -33,8 +33,8 @@ const ExportPopup: React.FC<ExportPopupProps> = ({
           alt="close"
           onClick={onClose}
         />
-        <div className="title">エクスポート</div>
-        <div className="content">
+        <div className="popup-title">エクスポート</div>
+        <div className="popup-content">
           <div className="subtitle">現在のデータをエクスポートしますか？</div>
         </div>
         <div className="exportcontent">
@@ -43,7 +43,7 @@ const ExportPopup: React.FC<ExportPopupProps> = ({
             <Copy className="copyIcon" />
           </button>
         </div>
-        <button className="button" onClick={onClose}>
+        <button className="popup-button" onClick={onClose}>
           閉じる
         </button>
       </div>
