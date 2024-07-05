@@ -47,6 +47,7 @@ export default function Home() {
   const [isComposing, setIsComposing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false); // State for toggling sidebar
+  const [language, setLanguage] = useState("JP");
 
   useEffect(() => {
     const savedTabs = localStorage.getItem("tabs");
@@ -86,6 +87,11 @@ export default function Home() {
 
   const handleCompositionEnd = () => {
     setIsComposing(false);
+  };
+
+  const handleLanguageChange = (selectedLanguage: string) => {
+    console.log(`Updating language to ${selectedLanguage}`);
+    setLanguage(selectedLanguage);
   };
 
   const fetchProducts = async (term: string) => {
@@ -251,6 +257,8 @@ export default function Home() {
           onExport={handleExportData}
           onDelete={handleResetData}
           onClose={handleToggleSidebarOpen}
+          onLanguageChange={handleLanguageChange}
+          currentLanguage={language}
         />
       )}
       <div className={styles.mainContent}>
@@ -260,7 +268,11 @@ export default function Home() {
             <input
               type="text"
               id="newTabTerm"
-              placeholder="アバターのリンクを入力"
+              placeholder={
+                language === "JP"
+                  ? "アバターのリンクを入力"
+                  : "Enter an avatar link"
+              }
               value={newTabTerm}
               onChange={(e) => setNewTabTerm(e.target.value)}
               className={clsx(styles.input)}
@@ -282,7 +294,9 @@ export default function Home() {
         </div>
         {tabs.length === 0 ? (
           <p className={clsx(styles.noTabs)}>
-            新しいアバターを追加して始めましょう。
+            {language === "JP"
+              ? "新しいアバターを追加して始めましょう。"
+              : "Add an avatar to get started."}
           </p>
         ) : (
           <Tabs value={activeTabId?.toString()} className={styles.tabs}>
@@ -310,7 +324,6 @@ export default function Home() {
                     <input
                       type="text"
                       defaultValue={tab.name}
-                      onBlur={() => setAlteringName(null)} // Save changes when focus is lost
                       onKeyDown={(e) => handleKeyDown(e, tab.id)}
                       onCompositionStart={handleCompositionStart}
                       onCompositionEnd={handleCompositionEnd}
@@ -340,7 +353,9 @@ export default function Home() {
                   <>
                     {tab.newItems.length > 0 && (
                       <p className={styles.newItems}>
-                        新しい商品が見つかりました！
+                        {language === "JP"
+                          ? "新しい商品が見つかりました！"
+                          : "New items found!"}
                       </p>
                     )}
                     <div className={styles.grid}>

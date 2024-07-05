@@ -93,6 +93,16 @@
     background-color: #d8dbdd;
 }
 
+.popup-button-alert {
+    width: 100%;
+    border-radius: 5px;
+    background-color: #dc2625;
+    color: white;
+    border: none;
+    padding: 9px;
+    cursor: pointer;
+}
+
 .exportcontent {
     display: flex;
     flex-direction: row;

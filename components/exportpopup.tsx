@@ -4,11 +4,16 @@ import { Copy } from "lucide-react";
 import closeoutline from "../lib/eva-icons/outline/svg/close-outline.svg";
 
 type ExportPopupProps = {
+  language: string;
   exportData: string;
   onClose: () => void;
 };
 
-const ExportPopup: React.FC<ExportPopupProps> = ({ onClose, exportData }) => {
+const ExportPopup: React.FC<ExportPopupProps> = ({
+  language,
+  onClose,
+  exportData,
+}) => {
   const exportDataRef = React.useRef<HTMLInputElement>(null);
 
   const handleOverlayClick = (e: React.MouseEvent) => {
@@ -36,7 +41,9 @@ const ExportPopup: React.FC<ExportPopupProps> = ({ onClose, exportData }) => {
           alt="close"
           onClick={onClose}
         />
-        <div className="popup-title">エクスポート</div>
+        <div className="popup-title">
+          {language === "JP" ? "エクスポート" : "Export"}
+        </div>
         <div className="popup-content">
           <div className="subtitle">現在のデータをエクスポートしますか？</div>
         </div>

@@ -60,10 +60,18 @@
     margin-bottom: 10px;
 }
 
+.sidebar-button-alert {
+    margin-top: 20px;
+    border-radius: 5px;
+    background-color: #dc2625;
+    color: white;
+    border: none;
+    padding: 5px 12px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
 .language {
     padding-bottom: 15px;
     border-bottom: 1px solid #d8dbdd;
-}
-
-.data {
 }

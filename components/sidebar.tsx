@@ -12,6 +12,8 @@ type sidebarProps = {
   onExport: () => string;
   onDelete: () => void;
   onClose: () => void;
+  onLanguageChange: (selectedLanguage: string) => void;
+  currentLanguage: string;
 };
 
 const notosansjp_regular = Noto_Sans_JP({ subsets: ["latin"], weight: "300" });
@@ -21,16 +23,19 @@ const Sidebar: React.FC<sidebarProps> = ({
   onExport,
   onDelete,
   onClose,
+  onLanguageChange,
+  currentLanguage,
 }) => {
   const [importPopupOpen, setImportPopupOpen] = React.useState(false);
   const [exportPopupOpen, setExportPopupOpen] = React.useState(false);
   const [deletePopupOpen, setDeletePopupOpen] = React.useState(false);
-  const [language, setLanguage] = React.useState("JP"); // Default language set to Japanese
+  const [language, setLanguage] = React.useState(currentLanguage); // Default language set to Japanese
   const [exportData, setExportData] = React.useState("");
 
   const handleLanguageChange = (selectedLanguage: string) => {
     console.log(`Switching language to ${selectedLanguage}`);
     setLanguage(selectedLanguage);
+    onLanguageChange(selectedLanguage);
   };
 
   const handleToggleImportPopup = () => {
@@ -71,9 +76,9 @@ const Sidebar: React.FC<sidebarProps> = ({
           alt="close"
           onClick={onClose}
         />
-        <h1>設定</h1>
+        <h1>{language === "JP" ? "設定" : "Settings"}</h1>
         <div className="language">
-          <h2>言語設定</h2>
+          <h2>{language === "JP" ? "言語設定" : "Language"}</h2>
           <label>
             <input
               type="radio"
@@ -96,33 +101,49 @@ const Sidebar: React.FC<sidebarProps> = ({
           </label>
         </div>
         <div className="data">
-          <h2>データ管理</h2>
-          <button className="sidebar-button" onClick={handleToggleImportPopup}>
-            データをインポート
-          </button>
-          <button className="sidebar-button" onClick={handleToggleExportPopup}>
-            データをエクスポート
-          </button>
+          <h2>{language === "JP" ? "データ管理" : "Data Management"}</h2>
+          <div>
+            <button
+              className="sidebar-button"
+              onClick={handleToggleImportPopup}
+            >
+              {language === "JP" ? "データをインポート" : "Import Data"}
+            </button>
+          </div>
+          <div>
+            <button
+              className="sidebar-button"
+              onClick={handleToggleExportPopup}
+            >
+              {language === "JP" ? "データをエクスポート" : "Export Data"}
+            </button>
+          </div>
         </div>
         <div>
-          <button className="sidebar-button" onClick={handleToggleDeletePopup}>
-            データをリセット
+          <button
+            className="sidebar-button-alert"
+            onClick={handleToggleDeletePopup}
+          >
+            {language === "JP" ? "データをリセット" : "Resest Data"}
           </button>
         </div>
         {importPopupOpen && (
           <ImportPopup
+            language={language}
             onImport={handleImportData}
             onClose={() => setImportPopupOpen(false)}
           />
         )}
         {exportPopupOpen && (
           <ExportPopup
+            language={language}
             exportData={exportData}
             onClose={() => setExportPopupOpen(false)}
           />
         )}
         {deletePopupOpen && (
           <DeletePopup
+            language={language}
             onDelete={handleDeleteData}
             onClose={() => setDeletePopupOpen(false)}
           />
