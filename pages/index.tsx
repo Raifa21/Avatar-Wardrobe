@@ -13,11 +13,10 @@ import refreshoutline from "../lib/eva-icons/outline/svg/refresh-outline.svg";
 import gearoutline from "../lib/eva-icons/outline/svg/settings-2-outline.svg";
 import plusoutline from "../lib/eva-icons/outline/svg/plus-outline.svg";
 import { Badge } from "@/components/ui/badge";
-import { validate as validateJSON } from "jsonschema";
 import Ajv, { JSONSchemaType } from "ajv";
+import DOMPurify from "dompurify";
 
 const ajv = new Ajv();
-
 const notosansjp_regular = Noto_Sans_JP({ subsets: ["latin"], weight: "300" });
 
 type Product = {
@@ -52,44 +51,14 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false); // State for toggling sidebar
   const [language, setLanguage] = useState("JP");
-  const tabSchema: JSONSchemaType<Tab> = {
-    type: "object",
-    definitions: {
-      product: {
-        type: "object",
-        properties: {
-          productId: { type: "number" },
-          productBrand: { type: "string" },
-          productCategory: { type: "number" },
-          productName: { type: "string" },
-          productPrice: { type: "number" },
-          imageURL: { type: "string" },
-          shopName: { type: "string" },
-          shopURL: { type: "string" },
-          shopImageURL: { type: "string" },
-        },
-        required: [
-          "productId",
-          "productBrand",
-          "productCategory",
-          "productName",
-          "productPrice",
-          "imageURL",
-          "shopName",
-          "shopURL",
-          "shopImageURL",
-        ],
-      },
-    },
+  const tabSchema = {
     properties: {
       id: { type: "number" },
       name: { type: "string" },
       term: { type: "string" },
-      products: { type: "array", items: { $ref: "#/definitions/product" } },
-      seenItems: { type: "array", items: { type: "number" } },
-      newItems: { type: "array", items: { $ref: "#/definitions/product" } },
     },
-    required: ["id", "name", "term", "products", "seenItems", "newItems"],
+    required: ["id", "name", "term"],
+    additionalProperties: false,
   };
 
   useEffect(() => {
@@ -186,6 +155,10 @@ export default function Home() {
 
   const setActiveTab = (tabId: number) => {
     setActiveTabId(tabId);
+    const tab = tabs.find((tab) => tab.id === tabId);
+    if (tab && tab.products.length === 0) {
+      handleSearch(tab);
+    }
     console.log("Active tab:", tabId);
   };
 
@@ -254,40 +227,38 @@ export default function Home() {
   };
 
   const handleImportData = (data: string) => {
-    // Remove the data URI prefix if present
-    const jsonData = data.replace("data:text/json;charset=utf-8,", "");
-
     try {
-      const parsedData = JSON.parse(decodeURIComponent(jsonData));
-
-      // Validate the JSON structure
-      const validationResult = validateJSON(parsedData, importSchema);
-      if (!validationResult.valid) {
-        console.error("Invalid JSON structure:", validationResult.errors);
-        // Handle error state or show error message
-        return;
-      }
-
-      const importedTabs: Tab[] = parsedData.map((tab: any) => ({
-        ...tab,
-        seenItems: new Set(tab.seenItems),
-        hasNewItem: tab.hasNewItem || false, // Ensure hasNewItem is defaulted if not present
-      }));
-
-      setTabs(importedTabs);
-      if (importedTabs.length > 0) {
-        setActiveTabId(importedTabs[0].id);
+      const parsedData = JSON.parse(decodeURIComponent(data));
+      console.log(typeof parsedData);
+      if (ajv.validate(tabSchema, parsedData)) {
+        const parsedData = JSON.parse(decodeURIComponent(data));
+        const importedTabs: Tab[] = parsedData.map((tab: any) => ({
+          id: DOMPurify.sanitize(tab.id),
+          name: DOMPurify.sanitize(tab.name),
+          term: DOMPurify.sanitize(tab.term),
+          products: [],
+          seenItems: new Set<number>(),
+          newItems: [],
+        }));
+        setTabs(importedTabs);
+        if (importedTabs.length > 0) {
+          setActiveTabId(importedTabs[0].id);
+        }
+        handleSearch(importedTabs[0]);
+      } else {
+        console.error("Invalid data format");
       }
     } catch (err) {
-      console.error("Error parsing imported tabs data:", err);
-      // Handle error state or show error message
+      alert("Invalid data format");
+      console.error("Invalid data format");
     }
   };
 
   const handleExportData = () => {
     const tabsData = tabs.map((tab) => ({
-      ...tab,
-      seenItems: Array.from(tab.seenItems),
+      id: tab.id,
+      name: tab.name,
+      term: tab.term,
     }));
 
     const dataStr = encodeURIComponent(JSON.stringify(tabsData));
@@ -324,7 +295,9 @@ export default function Home() {
                   : "Enter an avatar link"
               }
               value={newTabTerm}
-              onChange={(e) => setNewTabTerm(e.target.value)}
+              onChange={(e) =>
+                setNewTabTerm(DOMPurify.sanitize(e.target.value))
+              }
               className={clsx(styles.input)}
             />
             <button onClick={addTab} className={styles.button}>
