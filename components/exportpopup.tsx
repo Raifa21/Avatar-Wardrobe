@@ -45,7 +45,19 @@ const ExportPopup: React.FC<ExportPopupProps> = ({
           {language === "JP" ? "エクスポート" : "Export"}
         </div>
         <div className="popup-content">
-          <div className="subtitle">現在のデータをエクスポートしますか？</div>
+          <div className="subtitle">
+            {language === "JP" ? (
+              <>
+                <p>このセーブコードをコピーして他のデバイスに</p>
+                <p>インポートすることでデータを引き継ぐことができます。</p>
+              </>
+            ) : (
+              <>
+                <p>Copy this save code and import it on another device </p>
+                <p>to transfer your data.</p>
+              </>
+            )}
+          </div>
         </div>
         <div className="exportcontent">
           <input
@@ -59,7 +71,7 @@ const ExportPopup: React.FC<ExportPopupProps> = ({
           </button>
         </div>
         <button className="popup-button" onClick={onClose}>
-          閉じる
+          {language === "JP" ? "閉じる" : "Close"}
         </button>
       </div>
     </div>
