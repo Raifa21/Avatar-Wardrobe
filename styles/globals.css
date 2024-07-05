@@ -3,6 +3,7 @@
 @tailwind utilities;
 /* Global Styles */
 /* Add any custom global styles or resets here */
+
 body {
     font-family: "Noto Sans JP", sans-serif; /* Example font-family */
     background: #f1f1f1;

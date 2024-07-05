@@ -15,6 +15,7 @@ import plusoutline from "../lib/eva-icons/outline/svg/plus-outline.svg";
 import { Badge } from "@/components/ui/badge";
 import Ajv, { JSONSchemaType } from "ajv";
 import DOMPurify from "dompurify";
+import Head from "next/head";
 
 const ajv = new Ajv();
 const notosansjp_regular = Noto_Sans_JP({ subsets: ["latin"], weight: "300" });
@@ -272,6 +273,14 @@ export default function Home() {
 
   return (
     <div className={clsx(styles.container, notosansjp_regular.className)}>
+      <Head>
+        {" "}
+        <title> Avatar Wardrobe </title>{" "}
+        <meta
+          name="description"
+          content="Track and manage your favorite avatars and their outfits with Avatar Wardrobe."
+        />
+      </Head>
       {sidebarOpen && (
         <Sidebar
           onImport={handleImportData}
