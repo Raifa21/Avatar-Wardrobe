@@ -171,7 +171,7 @@ export default function Home() {
         term: id, // Store the extracted id
         products: [],
         seenItems: new Set<number>(),
-        hasNewItem: true, // Initialize with no new items
+        newItems: [],
       };
       setTabs((prevTabs) => [...prevTabs, newTab]);
       setActiveTab(newTab.id);
