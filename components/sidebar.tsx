@@ -3,7 +3,6 @@ import * as React from "react";
 import ImportPopup from "../components/importpopup";
 import ExportPopup from "../components/exportpopup";
 import DeletePopup from "../components/deletepopup";
-import { Button } from "@/components/ui/button";
 import { Noto_Sans_JP } from "next/font/google";
 import "../styles/sidebar.css";
 
@@ -51,7 +50,7 @@ const Sidebar: React.FC = () => {
   return (
     <div className={`sidebar ${notosansjp_regular.className}`}>
       <h1>設定</h1>
-      <div>
+      <div className="language">
         <h2>言語設定</h2>
         <label>
           <input
@@ -61,7 +60,7 @@ const Sidebar: React.FC = () => {
             checked={language === "JP"}
             onChange={() => handleLanguageChange("JP")}
           />
-          日本語
+          &nbsp; 日本語
         </label>
         <label>
           <input
@@ -71,15 +70,22 @@ const Sidebar: React.FC = () => {
             checked={language === "ENG"}
             onChange={() => handleLanguageChange("ENG")}
           />
-          English
+          &nbsp; English
         </label>
       </div>
-      <div>
-        <Button onClick={handleToggleImportPopup}>データをインポート</Button>
-        <Button onClick={handleToggleExportPopup}>データをエクスポート</Button>
+      <div className="data">
+        <h2>データ管理</h2>
+        <button className="sidebar-button" onClick={handleToggleImportPopup}>
+          データをインポート
+        </button>
+        <button className="sidebar-button" onClick={handleToggleExportPopup}>
+          データをエクスポート
+        </button>
       </div>
       <div>
-        <Button onClick={handleToggleDeletePopup}>データをリセット</Button>
+        <button className="sidebar-button" onClick={handleToggleDeletePopup}>
+          データをリセット
+        </button>
       </div>
       {importPopupOpen && (
         <ImportPopup

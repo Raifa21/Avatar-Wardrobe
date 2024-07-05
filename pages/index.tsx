@@ -34,12 +34,12 @@ type Tab = {
   term: string;
   products: Product[];
   seenItems: Set<number>;
+  newItems: Product[];
 };
 
 export default function Home() {
   const [tabs, setTabs] = useState<Tab[]>([]);
   const [activeTabId, setActiveTabId] = useState<number | null>(null);
-  const [newItems, setNewItems] = useState<Product[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [newTabName, setNewTabName] = useState<string>("");
   const [newTabTerm, setNewTabTerm] = useState<string>("");
@@ -55,6 +55,7 @@ export default function Home() {
         const parsedTabs: Tab[] = JSON.parse(savedTabs).map((tab: any) => ({
           ...tab,
           seenItems: new Set(tab.seenItems),
+          hasNewItem: false, // Initialize to false on load
         }));
         setTabs(parsedTabs);
         if (parsedTabs.length > 0) {
@@ -121,11 +122,15 @@ export default function Home() {
     setTabs((prevTabs) =>
       prevTabs.map((t) =>
         t.id === tab.id
-          ? { ...t, products, seenItems: new Set(t.seenItems) }
+          ? {
+              ...t,
+              products,
+              seenItems: new Set(t.seenItems),
+              newItems,
+            }
           : t,
       ),
     );
-    setNewItems(newItems);
     setError(null); // Clear previous error
     setLoading(false);
   };
@@ -166,6 +171,7 @@ export default function Home() {
         term: id, // Store the extracted id
         products: [],
         seenItems: new Set<number>(),
+        hasNewItem: true, // Initialize with no new items
       };
       setTabs((prevTabs) => [...prevTabs, newTab]);
       setActiveTab(newTab.id);
@@ -282,7 +288,7 @@ export default function Home() {
                   <p className={styles.newItems}>Loading...</p>
                 ) : (
                   <>
-                    {newItems.length > 0 && (
+                    {tab.newItems.length > 0 && (
                       <p className={styles.newItems}>
                         新しい商品が見つかりました！
                       </p>
@@ -327,7 +333,7 @@ export default function Home() {
                           <div className={clsx(styles.priceText)}>
                             ¥ {product.productPrice}
                           </div>
-                          {newItems.some(
+                          {tab.newItems.some(
                             (newItem) =>
                               newItem.productId === product.productId,
                           ) && <Badge className={styles.newBadge}>New!</Badge>}

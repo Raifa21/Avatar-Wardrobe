@@ -72,7 +72,8 @@
     display: flex;
     overflow-x: auto; /* Enable horizontal scrolling */
     white-space: nowrap; /* Prevent tabs from wrapping to new lines */
-    padding-bottom: 10px;
+    height: 100%;
+    justify-content: left;
 }
 
 .tabHeader {
@@ -84,6 +85,8 @@
     font-size: 1.2em;
     margin-top: 3px;
     font-weight: 900;
+    margin-left: 2px;
+    margin-bottom: 12px;
 }
 
 .tabTrigger {
@@ -149,10 +152,12 @@
 
 .newBadge {
     position: absolute;
-    top: 5px;
+    bottom: 5px;
     right: 0px;
-    color: green;
+    color: red;
     font-size: 0.8em;
+    border: 1px solid red;
+    padding-top: 1px;
 }
 
 .product .largeImage {
