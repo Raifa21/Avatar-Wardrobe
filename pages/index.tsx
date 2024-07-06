@@ -13,14 +13,16 @@ import refreshoutline from "../lib/eva-icons/outline/svg/refresh-outline.svg";
 import gearoutline from "../lib/eva-icons/outline/svg/settings-2-outline.svg";
 import plusoutline from "../lib/eva-icons/outline/svg/plus-outline.svg";
 import { Badge } from "@/components/ui/badge";
-import Ajv, { JSONSchemaType } from "ajv";
+import Ajv from "ajv";
 import DOMPurify from "dompurify";
 import Head from "next/head";
 
-const ajv = new Ajv();
-const notosansjp_regular = Noto_Sans_JP({ subsets: ["latin"], weight: "300" });
+const ajv = new Ajv(); //Validation library
+
+const notosansjp_regular = Noto_Sans_JP({ subsets: ["latin"], weight: "300" }); // Load Noto Sans JP font
 
 type Product = {
+  //retrieved from API
   imageURL: string;
   productBrand: string;
   productCategory: number;
@@ -42,16 +44,15 @@ type Tab = {
 };
 
 export default function Home() {
-  const [tabs, setTabs] = useState<Tab[]>([]);
-  const [activeTabId, setActiveTabId] = useState<number | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [newTabName, setNewTabName] = useState<string>("");
-  const [newTabTerm, setNewTabTerm] = useState<string>("");
-  const [alteringName, setAlteringName] = useState<number | null>(null);
-  const [isComposing, setIsComposing] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false); // State for toggling sidebar
-  const [language, setLanguage] = useState("JP");
+  const [tabs, setTabs] = useState<Tab[]>([]); // Stores the list of tabs
+  const [activeTabId, setActiveTabId] = useState<number | null>(null); // ID of the active tab
+  const [error, setError] = useState<string | null>(null); // Error message, if any
+  const [newTabTerm, setNewTabTerm] = useState<string>(""); // Term for creating a new tab
+  const [alteringName, setAlteringName] = useState<number | null>(null); // ID of the tab being renamed
+  const [isComposing, setIsComposing] = useState(false); // Whether the user is composing text
+  const [loading, setLoading] = useState(false); // Indicates if data is being loaded during API fetch
+  const [sidebarOpen, setSidebarOpen] = useState(false); // Whether the sidebar is open
+  const [language, setLanguage] = useState("JP"); // Current app language
   const tabSchema = {
     properties: {
       id: { type: "number" },
@@ -63,50 +64,56 @@ export default function Home() {
   };
 
   useEffect(() => {
+    // Retrieve saved tabs from localStorage on component mount
     const savedTabs = localStorage.getItem("tabs");
     if (savedTabs) {
       try {
         const parsedTabs: Tab[] = JSON.parse(savedTabs).map((tab: any) => ({
           ...tab,
-          seenItems: new Set(tab.seenItems),
+          seenItems: new Set(tab.seenItems), // Convert seenItems array back to a Set
           hasNewItem: false, // Initialize to false on load
         }));
-        setTabs(parsedTabs);
+        setTabs(parsedTabs); // Set the parsed tabs to state
         if (parsedTabs.length > 0) {
-          setActiveTabId(parsedTabs[0].id);
+          setActiveTabId(parsedTabs[0].id); // Set the first tab as active
         }
       } catch (err) {
         console.error("Error parsing tabs from localStorage:", err);
-        setTabs([]);
+        setTabs([]); // Set tabs to an empty array on error
       }
     }
-  }, []);
+  }, []); // Empty dependency array ensures this effect runs only once
 
   useEffect(() => {
+    // Save tabs to localStorage whenever they change
     localStorage.setItem(
       "tabs",
       JSON.stringify(
         tabs.map((tab) => ({
           ...tab,
-          seenItems: Array.from(tab.seenItems),
+          seenItems: Array.from(tab.seenItems), // Convert Set back to array for storage
         })),
       ),
     );
-  }, [tabs]);
+  }, [tabs]); // Run this effect whenever tabs state changes
 
+  // Handle composition start event (e.g., when starting to type in an input field)
   const handleCompositionStart = () => {
     setIsComposing(true);
   };
 
+  // Handle composition end event (e.g., when finishing typing in an input field)
   const handleCompositionEnd = () => {
     setIsComposing(false);
   };
 
+  // Handle language change
   const handleLanguageChange = (selectedLanguage: string) => {
     console.log(`Updating language to ${selectedLanguage}`);
     setLanguage(selectedLanguage);
   };
 
+  // Fetch products based on search term
   const fetchProducts = async (term: string) => {
     try {
       const response = await axios.get<{ items: Product[] }>(
@@ -129,15 +136,17 @@ export default function Home() {
     }
   };
 
+  // Handle search action for a specific tab
   const handleSearch = async (tab: Tab) => {
-    setLoading(true);
-    const products = await fetchProducts(tab.term);
+    setLoading(true); // Set loading state to true
+    const products = await fetchProducts(tab.term); // Fetch products based on tab term
     const newItems: Product[] = products.filter(
       (product) => !tab.seenItems.has(product.productId),
     );
 
-    newItems.forEach((product) => tab.seenItems.add(product.productId));
+    newItems.forEach((product) => tab.seenItems.add(product.productId)); // Add new items to seenItems
 
+    // Update tabs state with new products and items
     setTabs((prevTabs) =>
       prevTabs.map((t) =>
         t.id === tab.id
@@ -151,28 +160,32 @@ export default function Home() {
       ),
     );
     setError(null); // Clear previous error
-    setLoading(false);
+    setLoading(false); // Set loading state to false
   };
 
+  // Set the active tab by ID and trigger search if needed
   const setActiveTab = (tabId: number) => {
     setActiveTabId(tabId);
     const tab = tabs.find((tab) => tab.id === tabId);
     if (tab && tab.products.length === 0) {
-      handleSearch(tab);
+      handleSearch(tab); // Trigger search if no products are loaded
     }
     console.log("Active tab:", tabId);
   };
 
+  // Extract ID from a given URL
   const extractIdFromUrl = (url: string): string | null => {
+    // ID is given in the form of booth.pm/items/{ID}
+    // This extracts the ID part from the URL
     const match = url.match(/\/items\/(\d+)/);
     return match ? match[1] : null;
   };
 
+  // Add a new tab based on the newTabTerm input
   const addTab = () => {
     if (!newTabTerm) {
       return;
     }
-
     const id = extractIdFromUrl(newTabTerm);
     if (!id) {
       console.error("Invalid URL format");
@@ -183,30 +196,32 @@ export default function Home() {
 
     if (existingTab) {
       console.log("Tab already exists:", existingTab);
-      setActiveTab(existingTab.id);
-      setNewTabTerm("");
+      setActiveTab(existingTab.id); // Set the tab with the same term active
+      setNewTabTerm(""); // Clear input field
     } else {
       const tabCount = tabs.length;
       const defaultName = `アバター ${tabCount + 1}`;
       const newTab: Tab = {
         id: Date.now(),
-        name: newTabName || defaultName,
-        term: id, // Store the extracted id
+        name: defaultName,
+        term: id,
         products: [],
         seenItems: new Set<number>(),
         newItems: [],
       };
       setTabs((prevTabs) => [...prevTabs, newTab]);
-      setActiveTab(newTab.id);
-      handleSearch(newTab);
-      setNewTabTerm("");
+      setActiveTab(newTab.id); // Set the new tab active
+      handleSearch(newTab); // Trigger search for the new tab
+      setNewTabTerm(""); // Clear input field
     }
   };
 
+  // Handle reload action for a specific tab
   const handleReload = async (tab: Tab) => {
     await handleSearch(tab);
   };
 
+  // Edit the name of a tab by its ID
   const handleEditTabName = (id: number, newName: string) => {
     setTabs((prevTabs) =>
       prevTabs.map((tab) => (tab.id === id ? { ...tab, name: newName } : tab)),
@@ -214,6 +229,7 @@ export default function Home() {
     setAlteringName(null); // Reset editing state
   };
 
+  // Handle key down event for renaming a tab
   const handleKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
     id: number,
@@ -223,16 +239,17 @@ export default function Home() {
     }
   };
 
+  // Toggle the sidebar open state
   const handleToggleSidebarOpen = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
+  // Import tab data from a given string
   const handleImportData = (data: string) => {
     try {
       const parsedData = JSON.parse(decodeURIComponent(data));
       console.log(typeof parsedData);
       if (ajv.validate(tabSchema, parsedData)) {
-        const parsedData = JSON.parse(decodeURIComponent(data));
         const importedTabs: Tab[] = parsedData.map((tab: any) => ({
           id: DOMPurify.sanitize(tab.id),
           name: DOMPurify.sanitize(tab.name),
@@ -243,9 +260,9 @@ export default function Home() {
         }));
         setTabs(importedTabs);
         if (importedTabs.length > 0) {
-          setActiveTabId(importedTabs[0].id);
+          setActiveTabId(importedTabs[0].id); // Set the first imported tab as active
         }
-        handleSearch(importedTabs[0]);
+        handleSearch(importedTabs[0]); // Trigger search for the first imported tab
       } else {
         console.error("Invalid data format");
       }
@@ -255,6 +272,7 @@ export default function Home() {
     }
   };
 
+  // Export tab data to a string
   const handleExportData = () => {
     const tabsData = tabs.map((tab) => ({
       id: tab.id,
@@ -266,6 +284,7 @@ export default function Home() {
     return dataStr;
   };
 
+  // Reset all tab data
   const handleResetData = () => {
     setTabs([]);
     setActiveTabId(null);
@@ -362,22 +381,22 @@ export default function Home() {
                     <h2 className={clsx(styles.tabTitle)}>{tab.name}</h2>
                   )}
                   {alteringName !== tab.id && (
-                    <img
-                      src={editoutline.src}
-                      alt="Edit"
+                    <button
                       className={styles.editIcon}
                       onClick={() => setAlteringName(tab.id)}
-                    />
+                    >
+                      <img src={editoutline.src} alt="Edit" />
+                    </button>
                   )}
-                  <img
-                    src={refreshoutline.src}
-                    alt="Reload"
+                  <button
                     className={styles.reloadIcon}
                     onClick={() => handleReload(tab)}
-                  />
+                  >
+                    <img src={refreshoutline.src} alt="Reload" />
+                  </button>
                 </div>
                 {loading ? (
-                  <p className={styles.newItems}>Loading...</p>
+                  <p className={styles.newItems}> Loading...</p>
                 ) : (
                   <>
                     {tab.newItems.length > 0 && (
@@ -397,17 +416,20 @@ export default function Home() {
                               styles.newProduct,
                           )}
                         >
-                          <img
+                          <button
                             onClick={() => {
                               window.open(
                                 product.shopURL + "items/" + product.productId,
                                 "_blank",
                               );
                             }}
-                            src={product.imageURL}
-                            alt={product.productName}
-                            className={styles.largeImage}
-                          />
+                          >
+                            <img
+                              src={product.imageURL}
+                              alt={product.productName}
+                              className={styles.largeImage}
+                            />
+                          </button>
                           <p className={styles.productName}>
                             {product.productName}
                           </p>

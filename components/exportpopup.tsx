@@ -5,7 +5,7 @@ import closeoutline from "../lib/eva-icons/outline/svg/close-outline.svg";
 
 type ExportPopupProps = {
   language: string;
-  exportData: string;
+  exportData: string; // Data generated in index.tsx and passed onto this component
   onClose: () => void;
 };
 
@@ -16,18 +16,19 @@ const ExportPopup: React.FC<ExportPopupProps> = ({
 }) => {
   const exportDataRef = React.useRef<HTMLInputElement>(null);
 
+  // Close the popup if the overlay is clicked
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       onClose();
     }
   };
 
+  // Copy the export data to the clipboard
   const handleCopy = () => {
     if (exportDataRef.current) {
       exportDataRef.current.select();
       document.execCommand("copy");
 
-      // Show confirmation message
       onClose();
     }
   };
@@ -35,12 +36,9 @@ const ExportPopup: React.FC<ExportPopupProps> = ({
   return (
     <div className="popup-overlay active" onClick={handleOverlayClick}>
       <div className="popup">
-        <img
-          className="closeIcon"
-          src={closeoutline.src}
-          alt="close"
-          onClick={onClose}
-        />
+        <button onClick={onClose}>
+          <img className="closeIcon" src={closeoutline.src} alt="close" />
+        </button>
         <div className="popup-title">
           {language === "JP" ? "エクスポート" : "Export"}
         </div>

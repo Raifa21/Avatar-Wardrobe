@@ -4,7 +4,7 @@ import "../styles/popups.css";
 
 type ImportPopupProps = {
   language: string;
-  onImport: (data: string) => void;
+  onImport: (data: string) => void; // Callback function to send the imported string
   onClose: () => void;
 };
 
@@ -13,13 +13,15 @@ const ImportPopup: React.FC<ImportPopupProps> = ({
   onImport,
   onClose,
 }) => {
-  const [importedData, setImportedData] = React.useState("");
+  const [importedData, setImportedData] = React.useState(""); // The string to import
 
+  // Import the data when the import button is clicked
   const handleImport = () => {
     onImport(importedData);
     setImportedData(""); // Clear the input after import
   };
 
+  // Close the popup when the overlay is clicked
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -29,12 +31,9 @@ const ImportPopup: React.FC<ImportPopupProps> = ({
   return (
     <div className="popup-overlay active" onClick={handleOverlayClick}>
       <div className="popup">
-        <img
-          className="closeIcon"
-          src={closeoutline.src}
-          alt="close"
-          onClick={onClose}
-        />
+        <button onClick={onClose}>
+          <img className="closeIcon" src={closeoutline.src} alt="close" />
+        </button>
         <div className="popup-title">
           {language === "JP" ? "インポート" : "Import"}
         </div>

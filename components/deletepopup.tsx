@@ -13,10 +13,12 @@ const DeletePopup: React.FC<DeletePopupProps> = ({
   onDelete,
   onClose,
 }) => {
+  // Call callback function to delete data
   const handleDelete = () => {
     onDelete();
   };
 
+  // Close the popup if the overlay is clicked
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -26,12 +28,9 @@ const DeletePopup: React.FC<DeletePopupProps> = ({
   return (
     <div className="popup-overlay active" onClick={handleOverlayClick}>
       <div className="popup">
-        <img
-          className="closeIcon"
-          src={closeoutline.src}
-          alt="close"
-          onClick={onClose}
-        />
+        <button onClick={onClose}>
+          <img className="closeIcon" src={closeoutline.src} alt="close" />
+        </button>
         <div className="popup-title">
           {language === "JP" ? "データのリセット" : "Reset Data"}
         </div>

@@ -12,8 +12,8 @@ type sidebarProps = {
   onExport: () => string;
   onDelete: () => void;
   onClose: () => void;
-  onLanguageChange: (selectedLanguage: string) => void;
-  currentLanguage: string;
+  onLanguageChange: (selectedLanguage: string) => void; // Callback function to change language
+  currentLanguage: string; // Sent from index.tsx to keep track of current language
 };
 
 const notosansjp_regular = Noto_Sans_JP({ subsets: ["latin"], weight: "300" });
@@ -38,6 +38,7 @@ const Sidebar: React.FC<sidebarProps> = ({
     onLanguageChange(selectedLanguage);
   };
 
+  // Callback functions to open/close popups
   const handleToggleImportPopup = () => {
     setImportPopupOpen(!importPopupOpen);
   };
@@ -51,16 +52,21 @@ const Sidebar: React.FC<sidebarProps> = ({
     setDeletePopupOpen(!deletePopupOpen);
   };
 
+  // These callback functions are required to update the Tab[] data in index.tsx
+  //
+  // Callback function to send imported data to index.tsx
   const handleImportData = (data: string) => {
     onImport(data);
     setImportPopupOpen(false); // Close popup after import
   };
 
+  // Callback function to delete data
   const handleDeleteData = () => {
     onDelete();
     setDeletePopupOpen(false); // Close popup after delete
   };
 
+  // Close sidebar when clicking outside of the sidebar
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -70,12 +76,9 @@ const Sidebar: React.FC<sidebarProps> = ({
   return (
     <div className="sidebar-overlay active" onClick={handleOverlayClick}>
       <div className={`sidebar ${notosansjp_regular.className}`}>
-        <img
-          className="closeIcon"
-          src={closeoutline.src}
-          alt="close"
-          onClick={onClose}
-        />
+        <button onClick={onClose}>
+          <img className="closeIcon" src={closeoutline.src} alt="close" />
+        </button>
         <h1>{language === "JP" ? "設定" : "Settings"}</h1>
         <div className="language">
           <h2>{language === "JP" ? "言語設定" : "Language"}</h2>
