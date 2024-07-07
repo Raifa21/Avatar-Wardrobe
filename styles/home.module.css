@@ -3,6 +3,10 @@
     padding-right: 8%;
 }
 
+.mainContent {
+    margin-bottom: 20px;
+}
+
 .sidebar-container {
     position: fixed;
     top: 0;
@@ -45,6 +49,7 @@
 
 .noTabs {
     margin-top: 20px;
+    margin-bottom: 340px;
 }
 
 .inputContainer {
@@ -63,6 +68,7 @@
     border-bottom: 1px solid #d8dbdd;
     margin-top: 20px;
     padding-bottom: 20px;
+    border-radius:;
 }
 
 .plusIcon {
@@ -107,6 +113,8 @@
 
 .tabs {
     width: 100%;
+    height: 70%;
+    border-radius: 5px;
 }
 
 .tabsList {
@@ -179,6 +187,13 @@
 .newItems {
     color: green;
     margin-bottom: 10px;
+    margin-left: 5px;
+}
+
+.loadText {
+    color: green;
+    margin-bottom: 30px;
+    margin-left: 5px;
 }
 
 .product {
@@ -197,7 +212,17 @@
     color: red;
     font-size: 0.8em;
     border: 1px solid red;
-    padding-top: 1px;
+    border-radius: 10px;
+    padding: 0px 10px;
+}
+.newBadgeAbout {
+    bottom: 5px;
+    right: 0px;
+    color: red;
+    font-size: 0.8em;
+    border: 1px solid red;
+    border-radius: 10px;
+    padding: 0px 10px;
 }
 
 .product .largeImage {
@@ -250,6 +275,25 @@
     color: #fe5b66;
     position: absolute;
     cursor: default;
+}
+
+.link {
+    color: #1b72e8;
+}
+
+.flexRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.contentContact {
+    margin-bottom: 320px;
+}
+
+.supporters {
+    border-top: 1px solid #d8dbdd;
+    padding-top: 20px;
 }
 
 /* Controls the number of products displayed dependent on the width of the screen */

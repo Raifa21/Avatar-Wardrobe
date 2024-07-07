@@ -5,17 +5,19 @@ import axios from "axios";
 import clsx from "clsx";
 import { Noto_Sans_JP } from "next/font/google";
 import { useEffect, useState } from "react";
+import Supporters from "@/components/supporters";
 import Sidebar from "@/components/sidebar";
+import Footer from "@/components/footer";
 import "../styles/globals.css";
 import styles from "../styles/home.module.css";
 import editoutline from "../lib/eva-icons/outline/svg/edit-outline.svg";
 import refreshoutline from "../lib/eva-icons/outline/svg/refresh-outline.svg";
 import gearoutline from "../lib/eva-icons/outline/svg/settings-2-outline.svg";
 import plusoutline from "../lib/eva-icons/outline/svg/plus-outline.svg";
-import { Badge } from "@/components/ui/badge";
 import Ajv from "ajv";
 import DOMPurify from "dompurify";
 import Head from "next/head";
+import Link from "next/link";
 
 import { Analytics } from "@vercel/analytics/react";
 
@@ -397,7 +399,7 @@ export default function Home() {
                   </button>
                 </div>
                 {loading ? (
-                  <p className={styles.newItems}> Loading...</p>
+                  <p className={styles.loadText}> Loading...</p>
                 ) : (
                   <>
                     {tab.newItems.length > 0 && (
@@ -453,7 +455,7 @@ export default function Home() {
                           {tab.newItems.some(
                             (newItem) =>
                               newItem.productId === product.productId,
-                          ) && <Badge className={styles.newBadge}>New!</Badge>}
+                          ) && <div className={styles.newBadge}>New!</div>}
                         </div>
                       ))}
                     </div>
@@ -464,6 +466,8 @@ export default function Home() {
           </Tabs>
         )}
       </div>
+      <Supporters language={language} />
+      <Footer language={language} />
       <Analytics />
     </div>
   );

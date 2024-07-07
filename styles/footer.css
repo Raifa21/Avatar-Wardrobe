@@ -1,0 +1,19 @@
+.footer {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #d8dbdd;
+    margin-bottom: 20px;
+}
+
+.footer-container-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+
+.footer-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
