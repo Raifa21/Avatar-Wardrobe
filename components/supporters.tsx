@@ -9,9 +9,7 @@ const Supporters: React.FC = () => {
     <div className={styles.supporters}>
       以下の方々にご支援いただいております。ありがとうございます！！！！！
       <div className={styles.platinumSupport}></div>
-      <div className={styles.goldSupport}>
-        <div className={styles.supporterName}>・59 様</div>
-      </div>
+      <div className={styles.goldSupport}>・59 様</div>
       <div className={styles.silverSupport}></div>
       <div className={styles.bronzeSupport}></div>
       <div className={styles.basicSupport}></div>

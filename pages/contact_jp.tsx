@@ -1,7 +1,6 @@
 "use client";
 import * as React from "react";
 import { Noto_Sans_JP } from "next/font/google";
-import Supporters from "@/components/supporters";
 import Footer from "@/components/footer";
 import "../styles/globals.css";
 import styles from "../styles/home.module.css";
@@ -9,7 +8,9 @@ import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
 import clsx from "clsx";
-import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
+import mailoutline from "../lib/eva-icons/outline/svg/email-outline.svg";
+import xLogo from "../lib/x-logo/logo-black.png";
 
 const notosansjp_regular = Noto_Sans_JP({ subsets: ["latin"], weight: "300" }); // Load Noto Sans JP font
 
@@ -31,35 +32,30 @@ export default function About() {
             Avatar Wardrobe
           </Link>
         </div>
-        <div className={styles.content}>
+        <div className={styles.contentContact}>
           <br />
-          <div className={styles.tabTitle}>Avatar Wardrobeについて</div>
-          Avatar
-          Wardrobeは、お気に入りのアバターとそれらの対応商品を追跡および管理するためのアプリケーションです。
+          <div className={styles.tabTitle}>お問い合わせ</div>
+          お問い合わせは、以下のメールアドレスにて受け付けております。
           <br />
-          新しい商品は&nbsp;<Badge className={styles.newBadgeAbout}>New!</Badge>
-          &nbsp;マークで表示され、新しい商品を探すのに役立ちます。
+          返信がない場合は、お手数ですが再度X（旧Twitter)にて再度ご連絡ください。
           <br />
           <br />
-          もし質問等あれば、お手数ですが
-          <Link className={styles.link} href="./contact" target="_blank">
-            お問い合わせ
-          </Link>
-          よりご連絡ください。
+          <div className={styles.flexRow}>
+            <Image src={mailoutline.src} alt="mail" width={24} height={24} />
+            &nbsp;{" "}
+            <Link href="mailto:raifa.works@gmail.com">
+              {" "}
+              raifa.works@gmail.com{" "}
+            </Link>
+          </div>
           <br />
-          <p> このページのソースコードはGitHubにて公開しております。 </p>
-          コントリビュートする場合は
-          <Link
-            className={styles.link}
-            href="https://github.com/Raifa21/Avatar-Wardrobe "
-            target="_blank"
-          >
-            こちら
-          </Link>
-          <br />
+          <div className={styles.flexRow}>
+            <Image src={xLogo.src} alt="x" width={22} height={22} />
+            &nbsp;&nbsp;{" "}
+            <Link href="https://twitter.com/raifa_trtr">@raifa_trtr</Link>
+          </div>
           <br />
         </div>
-        <Supporters />
       </div>
       <Footer language="JP" />
     </div>

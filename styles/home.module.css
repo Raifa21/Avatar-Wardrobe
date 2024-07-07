@@ -211,7 +211,8 @@
     border: 1px solid red;
     padding-top: 1px;
 }
-._newBadge {
+
+.newBadgeAbout {
     bottom: 5px;
     right: 0px;
     color: red;
@@ -276,9 +277,20 @@
     color: #1b72e8;
 }
 
+.flexRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.contentContact {
+    margin-bottom: 320px;
+}
+
 .supporters {
     border-top: 1px solid #d8dbdd;
     padding-top: 20px;
+    padding-bottom: 182px;
 }
 
 /* Controls the number of products displayed dependent on the width of the screen */

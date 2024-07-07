@@ -17,10 +17,10 @@ const Footer: React.FC<FooterProps> = ({ language }) => {
       <div className="footer">
         <div className="footer-container">
           <div className="footer-left">
-            <Link className="footer-container-links" href="">
+            <Link className="footer-container-links" href="/about_jp">
               {language === "JP" ? "このアプリについて" : "About this app"}
             </Link>
-            <Link className="footer-container-links" href="#">
+            <Link className="footer-container-links" href="/contact_jp">
               {language === "JP" ? "お問い合わせ" : "Contact Us"}
             </Link>
           </div>
