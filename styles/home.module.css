@@ -3,6 +3,10 @@
     padding-right: 8%;
 }
 
+.mainContent {
+    margin-bottom: 20px;
+}
+
 .sidebar-container {
     position: fixed;
     top: 0;
@@ -45,7 +49,7 @@
 
 .noTabs {
     margin-top: 20px;
-    margin-bottom: 500px;
+    margin-bottom: 340px;
 }
 
 .inputContainer {
@@ -185,7 +189,7 @@
 
 .loadText {
     color: green;
-    margin-bottom: 380px;
+    margin-bottom: 30px;
     margin-left: 5px;
 }
 
@@ -200,6 +204,14 @@
 
 .newBadge {
     position: absolute;
+    bottom: 5px;
+    right: 0px;
+    color: red;
+    font-size: 0.8em;
+    border: 1px solid red;
+    padding-top: 1px;
+}
+._newBadge {
     bottom: 5px;
     right: 0px;
     color: red;
@@ -258,6 +270,15 @@
     color: #fe5b66;
     position: absolute;
     cursor: default;
+}
+
+.link {
+    color: #1b72e8;
+}
+
+.supporters {
+    border-top: 1px solid #d8dbdd;
+    padding-top: 20px;
 }
 
 /* Controls the number of products displayed dependent on the width of the screen */

@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { Noto_Sans_JP } from "next/font/google";
 import { useEffect, useState } from "react";
 import Sidebar from "@/components/sidebar";
+import Supporters from "@/components/supporters";
 import Footer from "@/components/footer";
 import "../styles/globals.css";
 import styles from "../styles/home.module.css";
@@ -17,6 +18,7 @@ import { Badge } from "@/components/ui/badge";
 import Ajv from "ajv";
 import DOMPurify from "dompurify";
 import Head from "next/head";
+import Link from "next/link";
 
 import { Analytics } from "@vercel/analytics/react";
 
@@ -465,7 +467,8 @@ export default function Home() {
           </Tabs>
         )}
       </div>
-      <Footer />
+      <Supporters />
+      <Footer language={language} />
       <Analytics />
     </div>
   );
