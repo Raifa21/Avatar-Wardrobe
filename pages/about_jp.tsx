@@ -42,12 +42,12 @@ export default function About() {
             &nbsp;マークで表示されます。
           </div>
           <br />
-          <br />
           もし質問等あれば、お手数ですが
           <Link className={styles.link} href="./contact_jp" target="_blank">
-            お問い合わせ
+            こちら
           </Link>
           よりご連絡ください。
+          <br />
           <br />
           <p> このページのソースコードはGitHubにて公開しております。 </p>
           コントリビュートする場合は

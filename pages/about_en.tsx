@@ -48,7 +48,7 @@ export default function About() {
           <Link className={styles.link} href="./contact_en" target="_blank">
             &nbsp;here
           </Link>
-          .
+          <br />
           <br />
           <p> The source code for this page is available on GitHub. </p>
           If you would like to contribute, please visit
