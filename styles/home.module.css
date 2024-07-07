@@ -45,6 +45,7 @@
 
 .noTabs {
     margin-top: 20px;
+    margin-bottom: 500px;
 }
 
 .inputContainer {
@@ -179,6 +180,13 @@
 .newItems {
     color: green;
     margin-bottom: 10px;
+    margin-left: 5px;
+}
+
+.loadText {
+    color: green;
+    margin-bottom: 380px;
+    margin-left: 5px;
 }
 
 .product {

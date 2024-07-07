@@ -1,10 +1,12 @@
 .footer {
     margin-top: 40px;
-    padding: 20px;
+    padding-top: 20px;
     border-top: 1px solid #d8dbdd;
+    margin-bottom: 20px;
 }
 .footer-container-links {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding-bottom: 10px;
 }

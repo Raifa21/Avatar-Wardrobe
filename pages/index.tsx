@@ -398,7 +398,7 @@ export default function Home() {
                   </button>
                 </div>
                 {loading ? (
-                  <p className={styles.newItems}> Loading...</p>
+                  <p className={styles.loadText}> Loading...</p>
                 ) : (
                   <>
                     {tab.newItems.length > 0 && (
