@@ -34,18 +34,18 @@ export default function About() {
         </div>
         <div className={styles.content}>
           <br />
-          <div className={styles.tabTitle}>お問い合わせ</div>
-          お問い合わせは、以下のメールアドレスにて受け付けております。
+          <div className={styles.tabTitle}>Contact Us</div>
+          For inquiries, please contact us at the following email address.
           <br />
-          返信がない場合は、お手数ですが再度X（旧Twitter)にて再度ご連絡ください。
+          If you do not receive a reply, please contact us again via X (formerly
+          Twitter).
           <br />
           <br />
           <div className={styles.flexRow}>
             <Image src={mailoutline.src} alt="mail" width={24} height={24} />
             &nbsp;{" "}
             <Link href="mailto:raifa.works@gmail.com">
-              {" "}
-              raifa.works@gmail.com{" "}
+              raifa.works@gmail.com
             </Link>
           </div>
           <br />
@@ -57,7 +57,7 @@ export default function About() {
           <br />
         </div>
       </div>
-      <Footer language="JP" />
+      <Footer language="EN" />
     </div>
   );
 }

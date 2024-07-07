@@ -4,25 +4,33 @@ import * as React from "react";
 import Link from "next/link";
 import styles from "../styles/home.module.css";
 
-const Supporters: React.FC = () => {
+type supportersProps = {
+  language: string;
+};
+
+const Supporters: React.FC<supportersProps> = ({ language }) => {
   return (
     <div className={styles.supporters}>
-      以下の方々にご支援いただいております。ありがとうございます！！！！！
+      {language === "JP"
+        ? "以下の方々にご支援いただいております。ありがとうございます！！！！！"
+        : "This page is supported by the following people. Thank you!"}
       <div className={styles.platinumSupport}></div>
-      <div className={styles.goldSupport}>・59 様</div>
+      <div className={styles.goldSupport}>
+        ・59 {language === "JP" ? "様" : ""}
+      </div>
       <div className={styles.silverSupport}></div>
       <div className={styles.bronzeSupport}></div>
       <div className={styles.basicSupport}></div>
       <br />
-      支援は
+      {language === "JP" ? "支援は" : "Support me "}
       <Link
         className={styles.link}
         href="https://raifa.fanbox.cc/"
         target="_blank"
       >
-        こちら
+        {language === "JP" ? "こちら" : "here"}
       </Link>
-      から！
+      {language === "JP" ? "から！" : " !"}
     </div>
   );
 };

@@ -9,13 +9,12 @@ import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
 import clsx from "clsx";
-import { Badge } from "@/components/ui/badge";
+import newBadge from "../lib/newbadge.png";
+import Image from "next/image";
 
 const notosansjp_regular = Noto_Sans_JP({ subsets: ["latin"], weight: "300" }); // Load Noto Sans JP font
 
 export default function About() {
-  const [sidebarOpen, setSidebarOpen] = useState(false); // Whether the sidebar is open
-
   return (
     <div className={clsx(styles.container, notosansjp_regular.className)}>
       <Head>
@@ -37,12 +36,15 @@ export default function About() {
           Avatar
           Wardrobeは、お気に入りのアバターとそれらの対応商品を追跡および管理するためのアプリケーションです。
           <br />
-          新しい商品は&nbsp;<Badge className={styles.newBadgeAbout}>New!</Badge>
-          &nbsp;マークで表示され、新しい商品を探すのに役立ちます。
+          <div className={styles.flexRow}>
+            新しい商品は&nbsp;
+            <Image src={newBadge.src} alt="newbadge" width={40} height={20} />
+            &nbsp;マークで表示されます。
+          </div>
           <br />
           <br />
           もし質問等あれば、お手数ですが
-          <Link className={styles.link} href="./contact" target="_blank">
+          <Link className={styles.link} href="./contact_jp" target="_blank">
             お問い合わせ
           </Link>
           よりご連絡ください。
@@ -59,7 +61,7 @@ export default function About() {
           <br />
           <br />
         </div>
-        <Supporters />
+        <Supporters language="JP" />
       </div>
       <Footer language="JP" />
     </div>
