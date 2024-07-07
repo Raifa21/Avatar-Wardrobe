@@ -44,10 +44,9 @@ export default function About() {
             &nbsp;mark.
           </div>
           <br />
-          <br />
-          If you have any questions, please feel free to contact us via
+          If you have any questions, please feel free to contact us
           <Link className={styles.link} href="./contact_en" target="_blank">
-            Contact Us
+            &nbsp;here
           </Link>
           .
           <br />
@@ -58,7 +57,7 @@ export default function About() {
             href="https://github.com/Raifa21/Avatar-Wardrobe"
             target="_blank"
           >
-            here
+            &nbsp;here
           </Link>
           .
           <br />
