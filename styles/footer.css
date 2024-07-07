@@ -1,0 +1,10 @@
+.footer {
+    margin-top: 40px;
+    padding: 20px;
+    border-top: 1px solid #d8dbdd;
+}
+.footer-container-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

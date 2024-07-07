@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { Noto_Sans_JP } from "next/font/google";
 import { useEffect, useState } from "react";
 import Sidebar from "@/components/sidebar";
+import Footer from "@/components/footer";
 import "../styles/globals.css";
 import styles from "../styles/home.module.css";
 import editoutline from "../lib/eva-icons/outline/svg/edit-outline.svg";
@@ -464,6 +465,7 @@ export default function Home() {
           </Tabs>
         )}
       </div>
+      <Footer />
       <Analytics />
     </div>
   );
