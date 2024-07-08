@@ -127,7 +127,7 @@ const Sidebar: React.FC<sidebarProps> = ({
             className="sidebar-button-alert"
             onClick={handleToggleDeletePopup}
           >
-            {language === "JP" ? "データをリセット" : "Resest Data"}
+            {language === "JP" ? "データをリセット" : "Reset Data"}
           </button>
         </div>
         {importPopupOpen && (
