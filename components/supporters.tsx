@@ -19,7 +19,9 @@ const Supporters: React.FC<supportersProps> = ({ language }) => {
         ・59 {language === "JP" ? "様" : ""}
       </div>
       <div className={styles.silverSupport}></div>
-      <div className={styles.bronzeSupport}></div>
+      <div className={styles.bronzeSupport}>
+        ・おこめのおいしいお店 {language === "JP" ? "様" : ""}
+      </div>
       <div className={styles.basicSupport}></div>
       <br />
       {language === "JP" ? "支援は" : "Support me "}
