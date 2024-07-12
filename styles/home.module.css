@@ -300,7 +300,7 @@
 
 @media (max-width: 720px) {
     .grid {
-        grid-template-columns: 45vw 45vw;
+        grid-template-columns: 44vw 44vw;
     }
     .container {
         padding-left: 4%;
