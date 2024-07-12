@@ -300,7 +300,7 @@
 
 @media (max-width: 720px) {
     .grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 45vw 45vw;
     }
     .container {
         padding-left: 4%;
@@ -310,24 +310,24 @@
 
 @media (min-width: 721px) and (max-width: 920px) {
     .grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: 27vw 27vw 27vw;
     }
 }
 
 @media (min-width: 921px) and (max-width: 1120px) {
     .grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: 20vw 20vw 20vw 20vw;
     }
 }
 
 @media (min-width: 1121px) and (max-width: 1320px) {
     .grid {
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: 16vw 16vw 16vw 16vw 16vw;
     }
 }
 
 @media (min-width: 1321px) {
     .grid {
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: 13vw 13vw 13vw 13vw 13vw 13vw;
     }
 }
