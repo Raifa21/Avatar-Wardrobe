@@ -20,7 +20,11 @@ const Supporters: React.FC<supportersProps> = ({ language }) => {
       </div>
       <div className={styles.silverSupport}></div>
       <div className={styles.bronzeSupport}>
-        ・おこめのおいしいお店 {language === "JP" ? "様" : ""}
+        ・
+        <Link href="https://okomeshop.booth.pm/" target="_blank">
+          おこめのおいしいお店
+        </Link>
+        &nbsp;{language === "JP" ? "様" : ""}
       </div>
       <div className={styles.basicSupport}></div>
       <br />
