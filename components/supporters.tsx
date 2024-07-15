@@ -25,6 +25,8 @@ const Supporters: React.FC<supportersProps> = ({ language }) => {
           おこめのおいしいお店
         </Link>
         &nbsp;{language === "JP" ? "様" : ""}
+        <br />
+        ・朝霧魅玲 {language === "JP" ? "様" : ""}
       </div>
       <div className={styles.basicSupport}></div>
       <br />
