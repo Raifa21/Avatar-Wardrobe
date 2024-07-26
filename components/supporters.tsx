@@ -18,7 +18,9 @@ const Supporters: React.FC<supportersProps> = ({ language }) => {
       <div className={styles.goldSupport}>
         ・59 {language === "JP" ? "様" : ""}
       </div>
-      <div className={styles.silverSupport}></div>
+      <div className={styles.silverSupport}>
+        ・東雲りん {language === "JP" ? "様" : ""}
+      </div>
       <div className={styles.bronzeSupport}>
         ・
         <Link href="https://okomeshop.booth.pm/" target="_blank">
