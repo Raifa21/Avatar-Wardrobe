@@ -3,6 +3,7 @@
 [For the English version, click here](./README.md)
 
 大好きなアバターの衣装を追跡・管理できるAvatar Wardrobeです。
+![image](https://github.com/user-attachments/assets/bde71d5d-83f9-48c1-9665-dceebb6ab4a2)
 
 ## 目次
 - [インストール](#インストール)
