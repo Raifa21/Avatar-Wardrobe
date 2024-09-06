@@ -1,10 +1,10 @@
 # Avatar Wardrobe
-![image](https://github.com/user-attachments/assets/bde71d5d-83f9-48c1-9665-dceebb6ab4a2)
-
 
 [日本語のバージョンはこちら](./README_JP.md)
 
 Track and manage your favorite avatars and their outfits with Avatar Wardrobe.
+![image](https://github.com/user-attachments/assets/bde71d5d-83f9-48c1-9665-dceebb6ab4a2)
+
 
 ## Table of Contents
 - [Installation](#installation)
