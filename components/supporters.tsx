@@ -21,6 +21,9 @@ const Supporters: React.FC<supportersProps> = ({ language }) => {
       <div className={styles.silverSupport}>
         ・ネフィリア {language === "JP" ? "様" : ""}
       </div>
+      <div className={styles.silverSupport}>
+        ・ことは しろ {language === "JP" ? "様" : ""}
+      </div>
       <div className={styles.bronzeSupport}>
         ・東雲りん {language === "JP" ? "様" : ""}
         <br />・
