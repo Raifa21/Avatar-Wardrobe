@@ -15,13 +15,10 @@ const Supporters: React.FC<supportersProps> = ({ language }) => {
         ? "以下の方々にご支援いただいております。ありがとうございます！！！！！"
         : "This page is supported by the following people. Thank you!"}
       <div className={styles.platinumSupport}></div>
-      <div className={styles.goldSupport}>
-        ・59 {language === "JP" ? "様" : ""}
-      </div>
+      <div className={styles.goldSupport}></div>
       <div className={styles.silverSupport}>
         ・ネフィリア {language === "JP" ? "様" : ""}
-      </div>
-      <div className={styles.silverSupport}>
+        <br />
         ・ことは しろ {language === "JP" ? "様" : ""}
       </div>
       <div className={styles.bronzeSupport}>
@@ -33,6 +30,10 @@ const Supporters: React.FC<supportersProps> = ({ language }) => {
         &nbsp;{language === "JP" ? "様" : ""}
         <br />
         ・朝霧魅玲 {language === "JP" ? "様" : ""}
+        <br />
+        ・しらいし {language === "JP" ? "様" : ""}
+        <br />
+        ・Tazz {language === "JP" ? "様" : ""}
       </div>
       <div className={styles.basicSupport}></div>
       <br />
