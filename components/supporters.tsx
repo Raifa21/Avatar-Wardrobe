@@ -22,8 +22,7 @@ const Supporters: React.FC<supportersProps> = ({ language }) => {
         ・ことは しろ {language === "JP" ? "様" : ""}
       </div>
       <div className={styles.bronzeSupport}>
-        ・東雲りん {language === "JP" ? "様" : ""}
-        <br />・
+        ・
         <Link href="https://okomeshop.booth.pm/" target="_blank">
           おこめのおいしいお店
         </Link>
@@ -34,6 +33,10 @@ const Supporters: React.FC<supportersProps> = ({ language }) => {
         ・しらいし {language === "JP" ? "様" : ""}
         <br />
         ・Tazz {language === "JP" ? "様" : ""}
+        <br />
+        ・れん {language === "JP" ? "様" : ""}
+        <br />
+        ・∈¨) {language === "JP" ? "様" : ""}
       </div>
       <div className={styles.basicSupport}></div>
       <br />
