@@ -20,6 +20,8 @@ const Supporters: React.FC<supportersProps> = ({ language }) => {
         ・ネフィリア {language === "JP" ? "様" : ""}
         <br />
         ・ことは しろ {language === "JP" ? "様" : ""}
+        <br />
+        ・九龍山羊 {language === "JP" ? "様" : ""}
       </div>
       <div className={styles.bronzeSupport}>
         ・
