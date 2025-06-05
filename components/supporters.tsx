@@ -38,7 +38,7 @@ const Supporters: React.FC<supportersProps> = ({ language }) => {
         <br />
         ・れん {language === "JP" ? "様" : ""}
         <br />
-        ・∈¨) {language === "JP" ? "様" : ""}
+        ・don't mind {language === "JP" ? "様" : ""}
       </div>
       <div className={styles.basicSupport}></div>
       <br />
