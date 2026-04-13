@@ -20,7 +20,7 @@
     "cheerio": "^1.0.0-rc.12",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "dompurify": "^3.2.4",
+    "dompurify": "^3.3.2",
     "jsonschema": "^1.4.1",
     "lucide-react": "^0.400.0",
     "next": "14.2.35",
